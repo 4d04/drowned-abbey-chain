@@ -1,0 +1,6 @@
+{
+  "fighter": { "id": 1, "hpBase": 24, "ac": 16, "attack": { "name": "longsword", "bonus": 5, "damage": "1d8+3" }, "proficient": ["STR", "CON"], "abilities": { "second_wind": 1 }, "hitDice": 1 },
+  "rogue":   { "id": 2, "hpBase": 20, "ac": 15, "attack": { "name": "rapier", "bonus": 5, "damage": "1d8+3" }, "proficient": ["DEX", "INT"], "abilities": {}, "hitDice": 1 },
+  "cleric":  { "id": 3, "hpBase": 22, "ac": 15, "attack": { "name": "mace", "bonus": 5, "damage": "1d8+2" }, "proficient": ["WIS", "CHA"], "abilities": { "heal": 3, "turn_undead": 1 }, "hitDice": 1 },
+  "wizard":  { "id": 4, "hpBase": 18, "ac": 13, "attack": { "name": "fire_bolt", "bonus": 5, "damage": "1d10+2" }, "proficient": ["INT", "WIS"], "abilities": { "magic_missile": 3 }, "hitDice": 1 }
+}

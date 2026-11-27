@@ -1,0 +1,9 @@
+{
+  "healing_potion":  { "id": 1, "rarity": "common", "price": 25, "use": { "heal": "2d4+2" } },
+  "rope":            { "id": 2, "rarity": "common", "price": 10 },
+  "lockpicks":       { "id": 3, "rarity": "common", "price": 15 },
+  "silvered_dagger": { "id": 4, "rarity": "uncommon", "weapon": { "bonus": 5, "damage": "1d6+3", "bonusDamageVs": { "undead": "1d4" } } },
+  "saints_ward":     { "id": 5, "rarity": "uncommon", "acBonus": 1 },
+  "abbots_signet":   { "id": 6, "rarity": "rare", "sellPrice": 150, "advantageOn": ["CHA"] },
+  "abbots_crozier":  { "id": 7, "rarity": "rare", "weapon": { "bonus": 6, "damage": "1d8+3" }, "grantsAbility": { "turn_undead": 1 } }
+}

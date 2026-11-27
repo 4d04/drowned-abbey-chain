@@ -1,0 +1,9 @@
+{
+  "skeleton":     { "id": 1, "hp": 13, "ac": 13, "attack": { "name": "rusted_blade", "bonus": 4, "damage": "1d6+2" }, "tags": ["undead"], "saves": { "WIS": -1 }, "initiative": 0, "traits": [] },
+  "giant_rat":    { "id": 2, "hp": 7,  "ac": 12, "attack": { "name": "bite", "bonus": 4, "damage": "1d4+2" }, "tags": ["beast"], "saves": { "WIS": 0 }, "initiative": 3, "traits": [{ "kind": "quick" }, { "kind": "pack", "bonusPerAlly": 1 }] },
+  "goblin":       { "id": 3, "hp": 7,  "ac": 15, "attack": { "name": "scimitar", "bonus": 4, "damage": "1d6+2" }, "tags": ["humanoid"], "saves": { "WIS": -1 }, "initiative": 2, "traits": [] },
+  "mimic":        { "id": 4, "hp": 24, "ac": 12, "attack": { "name": "pseudopod", "bonus": 4, "damage": "1d8+2" }, "tags": ["monstrosity"], "saves": { "WIS": 1 }, "initiative": -2, "traits": [] },
+  "ghoul":        { "id": 5, "hp": 18, "ac": 12, "attack": { "name": "claws", "bonus": 4, "damage": "2d4+2" }, "tags": ["undead"], "saves": { "WIS": 0 }, "initiative": 1, "traits": [{ "kind": "onHitSave", "ability": "CON", "dc": 10, "status": "slowed" }] },
+  "drowned_abbot":{ "id": 6, "hp": 48, "ac": 14, "attack": { "name": "drowned_crozier", "bonus": 4, "damage": "1d8" }, "tags": ["undead", "boss"], "saves": { "WIS": 2 }, "turnImmune": true,
+                    "initiative": 0, "traits": [{ "kind": "aoeEvery", "every": 3, "damage": "2d8", "save": { "ability": "WIS", "dc": 13, "half": true } }, { "kind": "recovers", "afterSeconds": 60 }] }
+}

@@ -1,7 +1,7 @@
 {
-    "name": "canopy-plugin-typescript",
+    "name": "abbey-plugin",
     "version": "1.0.0",
-    "description": "TypeScript implementation of the Canopy blockchain plugin",
+    "description": "The Drowned Abbey: Canopy state-machine plugin (SPEC \u00a77)",
     "type": "module",
     "main": "dist/main.js",
     "types": "dist/main.d.ts",
@@ -12,11 +12,15 @@
         "dev": "nodemon --exec 'node --loader ts-node/esm src/main.ts'",
         "build:proto": "pbjs -t static-module -w commonjs -o src/proto/index.js proto/*.proto && pbts -o src/proto/index.d.ts src/proto/index.js && cp src/proto/index.js src/proto/index.cjs",
         "build:descriptors": "node scripts/generate-descriptors.cjs",
-        "build:all": "npm run build:proto && npm run build:descriptors && npm run build"
+        "build:all": "npm run build:rules && npm run build:proto && npm run build:descriptors && npm run build",
+        "test": "npm run build && node --test --test-timeout=60000 --test-reporter=spec 'test/**/*.test.ts'",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "build:rules": "cd rules && npm ci --no-audit --no-fund && npm run build && npm prune --omit=dev --no-audit --no-fund"
     },
     "dependencies": {
         "long": "^5.2.3",
-        "protobufjs": "^7.5.4"
+        "protobufjs": "^7.5.4",
+        "@abbey/rules": "file:./rules"
     },
     "devDependencies": {
         "@types/node": "^20.19.11",

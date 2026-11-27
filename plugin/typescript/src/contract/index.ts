@@ -1,17 +1,10 @@
 // Re-export all contract components
-export {
-    Contract,
-    ContractConfig,
-    ContractAsync,
-    KeyForAccount,
-    KeyForFeeParams,
-    KeyForFeePool
-} from './contract.js';
+export { Contract, ContractConfig, ContractAsync, MESSAGES, EVENT_TYPE_URL } from './contract.js';
 export {
     Plugin,
-    StateProof,
     Config,
     DefaultConfig,
+    chainIdFromNode,
     NewConfigFromFile,
     StartPlugin,
     initializeContract,
