@@ -272,7 +272,15 @@ func (c *Controller) IsValidDoubleSigner(rootChainId, rootHeight uint64, address
 
 // PLUGIN CALLS BELOW
 
-const socketDir = "/tmp/plugin"
+// socketDir is where the plugin socket lives: CANOPY_PLUGIN_SOCKET_DIR, else /tmp/plugin. Local patch (not upstream) so
+// two plugin chains can run on one host without a private /tmp; the plugin must read the same variable.
+var socketDir = func() string {
+	if d := os.Getenv("CANOPY_PLUGIN_SOCKET_DIR"); d != "" {
+		return d
+	}
+	return "/tmp/plugin"
+}()
+
 const socketFile = "plugin.sock"
 
 // runPluginCtl() executes a plugin control script action and returns the command output
