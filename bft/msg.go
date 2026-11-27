@@ -190,7 +190,12 @@ func (b *BFT) CheckProposerMessage(x *Message, p *validateMessageParams) (isPart
 		}
 	}
 	// validate the Quorum Certificate
-	isPartialQC, err = x.Qc.Check(vals, b.LoadMaxBlockSize(), p.view, false)
+	// the max block size is read from FSM state, which a block commit or a round reset (Store.Reset) swaps and closes under
+	// the controller lock; read it under that lock too, or the read can land on a closed snapshot (panic: pebble: closed)
+	b.Controller.Lock()
+	maxBlockSize := b.LoadMaxBlockSize()
+	b.Controller.Unlock()
+	isPartialQC, err = x.Qc.Check(vals, maxBlockSize, p.view, false)
 	if err != nil {
 		return
 	}
