@@ -1,0 +1,6 @@
+{
+  "blessed":    { "id": 1, "rollBonus": 1, "charges": 3 },
+  "chilled":    { "id": 2, "rollBonus": -1, "charges": 3 },
+  "slowed":     { "id": 3, "disadvantage": true, "charges": 1 },
+  "emboldened": { "id": 4, "attackAdvantage": true, "charges": 1 }
+}

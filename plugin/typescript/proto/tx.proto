@@ -58,3 +58,119 @@ message Signature {
 }
 
 // NOTE: To add new transaction types (like MessageReward, MessageFaucet), see TUTORIAL.md
+
+// ===== The Drowned Abbey (SPEC §7.6) =====
+// Every message is signed by `address`. Game records in state are canonical JSON, not protobuf (see plugin/README).
+
+// MessageFaucetClaim pays params.faucetAmount from the keyless faucet account to the signer. The only zero-fee message.
+message MessageFaucetClaim {
+  bytes address = 1;
+}
+
+// MessageSetParams updates faucet limits and fee amounts. Signer must be the params authority.
+message MessageSetParams {
+  bytes address = 1;
+  string params_json = 2; // @gotags: json:"paramsJson"
+}
+
+// MessageCreateCharacter creates a character and commits to its stat roll (revealed with MessageReveal).
+message MessageCreateCharacter {
+  bytes address = 1;
+  string name = 2;
+  string class_id = 3; // @gotags: json:"classId"
+  bytes commit = 4;
+}
+
+// MessageAssignStats assigns the six rolled scores: permutation[i] is the rolled index used for ability i (STR..CHA).
+message MessageAssignStats {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  repeated uint32 permutation = 3;
+}
+
+// MessageEnterDungeon moves a character from camp to the level-1 entry room.
+message MessageEnterDungeon {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+}
+
+// MessageAct is one exchange in the dungeon: an engine intent (rules/src/engine/resolve.ts Intent), flattened.
+// kind: action | attack | ability | useItem | move | rest | take | stabilize.
+// target: a monster index ("0", "1", ...) or a character id in hex, depending on kind; empty when unused.
+// commit: required exactly when the intent needs dice (the engine's needsRoll); empty for plain moves and dice-free actions.
+message MessageAct {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  string kind = 3;
+  string action_id = 4; // @gotags: json:"actionId"
+  string target = 5;
+  string item_id = 6; // @gotags: json:"itemId"
+  string ability = 7;
+  uint32 to_level = 8; // @gotags: json:"toLevel"
+  uint32 to_room = 9; // @gotags: json:"toRoom"
+  string loot_ref = 10; // @gotags: json:"lootRef"
+  bytes commit = 11;
+}
+
+// MessageReveal reveals the secret behind a pending roll (an act or a stat roll) and resolves it.
+message MessageReveal {
+  bytes address = 1;
+  bytes roll_id = 2; // @gotags: json:"rollId"
+  bytes secret = 3;
+}
+
+// MessageGive hands an item or carried gold to another standing character in the same room.
+message MessageGive {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  bytes to_char_id = 3; // @gotags: json:"toCharId"
+  string item_id = 4; // @gotags: json:"itemId"
+  uint64 gold = 5;
+}
+
+// MessageExtract ends a delve at the Lychgate: carried gold moves treasury -> owner account, items to the stash.
+message MessageExtract {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+}
+
+// MessageShopBuy buys items at camp: owner account -> treasury.
+message MessageShopBuy {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  string template = 3;
+  uint32 qty = 4;
+}
+
+// MessageShopSell sells an item at camp for its escrowed value: treasury -> owner account.
+message MessageShopSell {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  string item_id = 3; // @gotags: json:"itemId"
+}
+
+// MessageStashMove moves an item between a character in camp and the account stash.
+message MessageStashMove {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  string item_id = 3; // @gotags: json:"itemId"
+  bool to_stash = 4; // @gotags: json:"toStash"
+}
+
+// MessagePartySet puts a character in a party, or takes it out (SPEC §3.6). Signed by the character's owner: joining is
+// consent to be moved along whenever another member of that party moves within a level. `with` names a character in the
+// same place whose party to join (the character itself: lead your own party); empty leaves.
+message MessagePartySet {
+  bytes address = 1;
+  bytes char_id = 2; // @gotags: json:"charId"
+  bytes with = 3;
+}
+
+// ===== Events (SPEC §7.7) =====
+
+// AbbeyEvent is the payload of every plugin event. kind names the event (ActionResolved, CharacterFerried, ...);
+// data is canonical JSON with every input needed to render and verify it.
+message AbbeyEvent {
+  string kind = 1;
+  string data = 2;
+}

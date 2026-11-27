@@ -2845,7 +2845,6 @@ $root.types = (function() {
          * @memberof types
          * @interface IPluginFSMConfig
          * @property {types.IPluginConfig|null} [config] PluginFSMConfig config
-         * @property {Uint8Array|null} [pluginConfig] PluginFSMConfig pluginConfig
          */
 
         /**
@@ -2870,14 +2869,6 @@ $root.types = (function() {
          * @instance
          */
         PluginFSMConfig.prototype.config = null;
-
-        /**
-         * PluginFSMConfig pluginConfig.
-         * @member {Uint8Array} pluginConfig
-         * @memberof types.PluginFSMConfig
-         * @instance
-         */
-        PluginFSMConfig.prototype.pluginConfig = $util.newBuffer([]);
 
         /**
          * Creates a new PluginFSMConfig instance using the specified properties.
@@ -2905,8 +2896,6 @@ $root.types = (function() {
                 writer = $Writer.create();
             if (message.config != null && Object.hasOwnProperty.call(message, "config"))
                 $root.types.PluginConfig.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.pluginConfig != null && Object.hasOwnProperty.call(message, "pluginConfig"))
-                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.pluginConfig);
             return writer;
         };
 
@@ -2945,10 +2934,6 @@ $root.types = (function() {
                 switch (tag >>> 3) {
                 case 1: {
                         message.config = $root.types.PluginConfig.decode(reader, reader.uint32());
-                        break;
-                    }
-                case 2: {
-                        message.pluginConfig = reader.bytes();
                         break;
                     }
                 default:
@@ -2991,9 +2976,6 @@ $root.types = (function() {
                 if (error)
                     return "config." + error;
             }
-            if (message.pluginConfig != null && message.hasOwnProperty("pluginConfig"))
-                if (!(message.pluginConfig && typeof message.pluginConfig.length === "number" || $util.isString(message.pluginConfig)))
-                    return "pluginConfig: buffer expected";
             return null;
         };
 
@@ -3014,11 +2996,6 @@ $root.types = (function() {
                     throw TypeError(".types.PluginFSMConfig.config: object expected");
                 message.config = $root.types.PluginConfig.fromObject(object.config);
             }
-            if (object.pluginConfig != null)
-                if (typeof object.pluginConfig === "string")
-                    $util.base64.decode(object.pluginConfig, message.pluginConfig = $util.newBuffer($util.base64.length(object.pluginConfig)), 0);
-                else if (object.pluginConfig.length >= 0)
-                    message.pluginConfig = object.pluginConfig;
             return message;
         };
 
@@ -3035,20 +3012,10 @@ $root.types = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults) {
+            if (options.defaults)
                 object.config = null;
-                if (options.bytes === String)
-                    object.pluginConfig = "";
-                else {
-                    object.pluginConfig = [];
-                    if (options.bytes !== Array)
-                        object.pluginConfig = $util.newBuffer(object.pluginConfig);
-                }
-            }
             if (message.config != null && message.hasOwnProperty("config"))
                 object.config = $root.types.PluginConfig.toObject(message.config, options);
-            if (message.pluginConfig != null && message.hasOwnProperty("pluginConfig"))
-                object.pluginConfig = options.bytes === String ? $util.base64.encode(message.pluginConfig, 0, message.pluginConfig.length) : options.bytes === Array ? Array.prototype.slice.call(message.pluginConfig) : message.pluginConfig;
             return object;
         };
 
@@ -6044,8 +6011,6 @@ $root.types = (function() {
          * @memberof types
          * @interface IPluginQueryResponse
          * @property {types.IPluginStateReadResponse|null} [read] PluginQueryResponse read
-         * @property {Uint8Array|null} [stateRoot] PluginQueryResponse stateRoot
-         * @property {number|Long|null} [height] PluginQueryResponse height
          * @property {types.IPluginError|null} [error] PluginQueryResponse error
          */
 
@@ -6071,22 +6036,6 @@ $root.types = (function() {
          * @instance
          */
         PluginQueryResponse.prototype.read = null;
-
-        /**
-         * PluginQueryResponse stateRoot.
-         * @member {Uint8Array} stateRoot
-         * @memberof types.PluginQueryResponse
-         * @instance
-         */
-        PluginQueryResponse.prototype.stateRoot = $util.newBuffer([]);
-
-        /**
-         * PluginQueryResponse height.
-         * @member {number|Long} height
-         * @memberof types.PluginQueryResponse
-         * @instance
-         */
-        PluginQueryResponse.prototype.height = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * PluginQueryResponse error.
@@ -6122,10 +6071,6 @@ $root.types = (function() {
                 writer = $Writer.create();
             if (message.read != null && Object.hasOwnProperty.call(message, "read"))
                 $root.types.PluginStateReadResponse.encode(message.read, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.stateRoot != null && Object.hasOwnProperty.call(message, "stateRoot"))
-                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.stateRoot);
-            if (message.height != null && Object.hasOwnProperty.call(message, "height"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.height);
             if (message.error != null && Object.hasOwnProperty.call(message, "error"))
                 $root.types.PluginError.encode(message.error, writer.uint32(/* id 99, wireType 2 =*/794).fork()).ldelim();
             return writer;
@@ -6166,14 +6111,6 @@ $root.types = (function() {
                 switch (tag >>> 3) {
                 case 1: {
                         message.read = $root.types.PluginStateReadResponse.decode(reader, reader.uint32());
-                        break;
-                    }
-                case 2: {
-                        message.stateRoot = reader.bytes();
-                        break;
-                    }
-                case 3: {
-                        message.height = reader.uint64();
                         break;
                     }
                 case 99: {
@@ -6220,12 +6157,6 @@ $root.types = (function() {
                 if (error)
                     return "read." + error;
             }
-            if (message.stateRoot != null && message.hasOwnProperty("stateRoot"))
-                if (!(message.stateRoot && typeof message.stateRoot.length === "number" || $util.isString(message.stateRoot)))
-                    return "stateRoot: buffer expected";
-            if (message.height != null && message.hasOwnProperty("height"))
-                if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
-                    return "height: integer|Long expected";
             if (message.error != null && message.hasOwnProperty("error")) {
                 var error = $root.types.PluginError.verify(message.error);
                 if (error)
@@ -6251,20 +6182,6 @@ $root.types = (function() {
                     throw TypeError(".types.PluginQueryResponse.read: object expected");
                 message.read = $root.types.PluginStateReadResponse.fromObject(object.read);
             }
-            if (object.stateRoot != null)
-                if (typeof object.stateRoot === "string")
-                    $util.base64.decode(object.stateRoot, message.stateRoot = $util.newBuffer($util.base64.length(object.stateRoot)), 0);
-                else if (object.stateRoot.length >= 0)
-                    message.stateRoot = object.stateRoot;
-            if (object.height != null)
-                if ($util.Long)
-                    (message.height = $util.Long.fromValue(object.height)).unsigned = true;
-                else if (typeof object.height === "string")
-                    message.height = parseInt(object.height, 10);
-                else if (typeof object.height === "number")
-                    message.height = object.height;
-                else if (typeof object.height === "object")
-                    message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber(true);
             if (object.error != null) {
                 if (typeof object.error !== "object")
                     throw TypeError(".types.PluginQueryResponse.error: object expected");
@@ -6288,29 +6205,10 @@ $root.types = (function() {
             var object = {};
             if (options.defaults) {
                 object.read = null;
-                if (options.bytes === String)
-                    object.stateRoot = "";
-                else {
-                    object.stateRoot = [];
-                    if (options.bytes !== Array)
-                        object.stateRoot = $util.newBuffer(object.stateRoot);
-                }
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.height = options.longs === String ? "0" : 0;
                 object.error = null;
             }
             if (message.read != null && message.hasOwnProperty("read"))
                 object.read = $root.types.PluginStateReadResponse.toObject(message.read, options);
-            if (message.stateRoot != null && message.hasOwnProperty("stateRoot"))
-                object.stateRoot = options.bytes === String ? $util.base64.encode(message.stateRoot, 0, message.stateRoot.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateRoot) : message.stateRoot;
-            if (message.height != null && message.hasOwnProperty("height"))
-                if (typeof message.height === "number")
-                    object.height = options.longs === String ? String(message.height) : message.height;
-                else
-                    object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber(true) : message.height;
             if (message.error != null && message.hasOwnProperty("error"))
                 object.error = $root.types.PluginError.toObject(message.error, options);
             return object;
@@ -6624,7 +6522,6 @@ $root.types = (function() {
          * @interface IPluginKeyRead
          * @property {number|Long|null} [queryId] PluginKeyRead queryId
          * @property {Uint8Array|null} [key] PluginKeyRead key
-         * @property {boolean|null} [prove] PluginKeyRead prove
          */
 
         /**
@@ -6659,14 +6556,6 @@ $root.types = (function() {
         PluginKeyRead.prototype.key = $util.newBuffer([]);
 
         /**
-         * PluginKeyRead prove.
-         * @member {boolean} prove
-         * @memberof types.PluginKeyRead
-         * @instance
-         */
-        PluginKeyRead.prototype.prove = false;
-
-        /**
          * Creates a new PluginKeyRead instance using the specified properties.
          * @function create
          * @memberof types.PluginKeyRead
@@ -6694,8 +6583,6 @@ $root.types = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.queryId);
             if (message.key != null && Object.hasOwnProperty.call(message, "key"))
                 writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.key);
-            if (message.prove != null && Object.hasOwnProperty.call(message, "prove"))
-                writer.uint32(/* id 3, wireType 0 =*/24).bool(message.prove);
             return writer;
         };
 
@@ -6740,10 +6627,6 @@ $root.types = (function() {
                         message.key = reader.bytes();
                         break;
                     }
-                case 3: {
-                        message.prove = reader.bool();
-                        break;
-                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -6785,9 +6668,6 @@ $root.types = (function() {
             if (message.key != null && message.hasOwnProperty("key"))
                 if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
                     return "key: buffer expected";
-            if (message.prove != null && message.hasOwnProperty("prove"))
-                if (typeof message.prove !== "boolean")
-                    return "prove: boolean expected";
             return null;
         };
 
@@ -6817,8 +6697,6 @@ $root.types = (function() {
                     $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
                 else if (object.key.length >= 0)
                     message.key = object.key;
-            if (object.prove != null)
-                message.prove = Boolean(object.prove);
             return message;
         };
 
@@ -6848,7 +6726,6 @@ $root.types = (function() {
                     if (options.bytes !== Array)
                         object.key = $util.newBuffer(object.key);
                 }
-                object.prove = false;
             }
             if (message.queryId != null && message.hasOwnProperty("queryId"))
                 if (typeof message.queryId === "number")
@@ -6857,8 +6734,6 @@ $root.types = (function() {
                     object.queryId = options.longs === String ? $util.Long.prototype.toString.call(message.queryId) : options.longs === Number ? new $util.LongBits(message.queryId.low >>> 0, message.queryId.high >>> 0).toNumber(true) : message.queryId;
             if (message.key != null && message.hasOwnProperty("key"))
                 object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
-            if (message.prove != null && message.hasOwnProperty("prove"))
-                object.prove = message.prove;
             return object;
         };
 
@@ -7466,8 +7341,6 @@ $root.types = (function() {
          * @interface IPluginReadResult
          * @property {number|Long|null} [queryId] PluginReadResult queryId
          * @property {Array.<types.IPluginStateEntry>|null} [entries] PluginReadResult entries
-         * @property {Array.<types.IProofNode>|null} [proof] PluginReadResult proof
-         * @property {boolean|null} [exists] PluginReadResult exists
          */
 
         /**
@@ -7480,7 +7353,6 @@ $root.types = (function() {
          */
         function PluginReadResult(properties) {
             this.entries = [];
-            this.proof = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -7502,22 +7374,6 @@ $root.types = (function() {
          * @instance
          */
         PluginReadResult.prototype.entries = $util.emptyArray;
-
-        /**
-         * PluginReadResult proof.
-         * @member {Array.<types.IProofNode>} proof
-         * @memberof types.PluginReadResult
-         * @instance
-         */
-        PluginReadResult.prototype.proof = $util.emptyArray;
-
-        /**
-         * PluginReadResult exists.
-         * @member {boolean} exists
-         * @memberof types.PluginReadResult
-         * @instance
-         */
-        PluginReadResult.prototype.exists = false;
 
         /**
          * Creates a new PluginReadResult instance using the specified properties.
@@ -7548,11 +7404,6 @@ $root.types = (function() {
             if (message.entries != null && message.entries.length)
                 for (var i = 0; i < message.entries.length; ++i)
                     $root.types.PluginStateEntry.encode(message.entries[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-            if (message.proof != null && message.proof.length)
-                for (var i = 0; i < message.proof.length; ++i)
-                    $root.types.ProofNode.encode(message.proof[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-            if (message.exists != null && Object.hasOwnProperty.call(message, "exists"))
-                writer.uint32(/* id 4, wireType 0 =*/32).bool(message.exists);
             return writer;
         };
 
@@ -7597,16 +7448,6 @@ $root.types = (function() {
                         if (!(message.entries && message.entries.length))
                             message.entries = [];
                         message.entries.push($root.types.PluginStateEntry.decode(reader, reader.uint32()));
-                        break;
-                    }
-                case 3: {
-                        if (!(message.proof && message.proof.length))
-                            message.proof = [];
-                        message.proof.push($root.types.ProofNode.decode(reader, reader.uint32()));
-                        break;
-                    }
-                case 4: {
-                        message.exists = reader.bool();
                         break;
                     }
                 default:
@@ -7656,18 +7497,6 @@ $root.types = (function() {
                         return "entries." + error;
                 }
             }
-            if (message.proof != null && message.hasOwnProperty("proof")) {
-                if (!Array.isArray(message.proof))
-                    return "proof: array expected";
-                for (var i = 0; i < message.proof.length; ++i) {
-                    var error = $root.types.ProofNode.verify(message.proof[i]);
-                    if (error)
-                        return "proof." + error;
-                }
-            }
-            if (message.exists != null && message.hasOwnProperty("exists"))
-                if (typeof message.exists !== "boolean")
-                    return "exists: boolean expected";
             return null;
         };
 
@@ -7702,18 +7531,6 @@ $root.types = (function() {
                     message.entries[i] = $root.types.PluginStateEntry.fromObject(object.entries[i]);
                 }
             }
-            if (object.proof) {
-                if (!Array.isArray(object.proof))
-                    throw TypeError(".types.PluginReadResult.proof: array expected");
-                message.proof = [];
-                for (var i = 0; i < object.proof.length; ++i) {
-                    if (typeof object.proof[i] !== "object")
-                        throw TypeError(".types.PluginReadResult.proof: object expected");
-                    message.proof[i] = $root.types.ProofNode.fromObject(object.proof[i]);
-                }
-            }
-            if (object.exists != null)
-                message.exists = Boolean(object.exists);
             return message;
         };
 
@@ -7730,18 +7547,14 @@ $root.types = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.arrays || options.defaults) {
+            if (options.arrays || options.defaults)
                 object.entries = [];
-                object.proof = [];
-            }
-            if (options.defaults) {
+            if (options.defaults)
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
                     object.queryId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.queryId = options.longs === String ? "0" : 0;
-                object.exists = false;
-            }
             if (message.queryId != null && message.hasOwnProperty("queryId"))
                 if (typeof message.queryId === "number")
                     object.queryId = options.longs === String ? String(message.queryId) : message.queryId;
@@ -7752,13 +7565,6 @@ $root.types = (function() {
                 for (var j = 0; j < message.entries.length; ++j)
                     object.entries[j] = $root.types.PluginStateEntry.toObject(message.entries[j], options);
             }
-            if (message.proof && message.proof.length) {
-                object.proof = [];
-                for (var j = 0; j < message.proof.length; ++j)
-                    object.proof[j] = $root.types.ProofNode.toObject(message.proof[j], options);
-            }
-            if (message.exists != null && message.hasOwnProperty("exists"))
-                object.exists = message.exists;
             return object;
         };
 
@@ -7789,276 +7595,6 @@ $root.types = (function() {
         };
 
         return PluginReadResult;
-    })();
-
-    types.ProofNode = (function() {
-
-        /**
-         * Properties of a ProofNode.
-         * @memberof types
-         * @interface IProofNode
-         * @property {Uint8Array|null} [key] ProofNode key
-         * @property {Uint8Array|null} [value] ProofNode value
-         * @property {number|null} [bitmask] ProofNode bitmask
-         */
-
-        /**
-         * Constructs a new ProofNode.
-         * @memberof types
-         * @classdesc Represents a ProofNode.
-         * @implements IProofNode
-         * @constructor
-         * @param {types.IProofNode=} [properties] Properties to set
-         */
-        function ProofNode(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * ProofNode key.
-         * @member {Uint8Array} key
-         * @memberof types.ProofNode
-         * @instance
-         */
-        ProofNode.prototype.key = $util.newBuffer([]);
-
-        /**
-         * ProofNode value.
-         * @member {Uint8Array} value
-         * @memberof types.ProofNode
-         * @instance
-         */
-        ProofNode.prototype.value = $util.newBuffer([]);
-
-        /**
-         * ProofNode bitmask.
-         * @member {number} bitmask
-         * @memberof types.ProofNode
-         * @instance
-         */
-        ProofNode.prototype.bitmask = 0;
-
-        /**
-         * Creates a new ProofNode instance using the specified properties.
-         * @function create
-         * @memberof types.ProofNode
-         * @static
-         * @param {types.IProofNode=} [properties] Properties to set
-         * @returns {types.ProofNode} ProofNode instance
-         */
-        ProofNode.create = function create(properties) {
-            return new ProofNode(properties);
-        };
-
-        /**
-         * Encodes the specified ProofNode message. Does not implicitly {@link types.ProofNode.verify|verify} messages.
-         * @function encode
-         * @memberof types.ProofNode
-         * @static
-         * @param {types.IProofNode} message ProofNode message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        ProofNode.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.key);
-            if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.value);
-            if (message.bitmask != null && Object.hasOwnProperty.call(message, "bitmask"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.bitmask);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified ProofNode message, length delimited. Does not implicitly {@link types.ProofNode.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof types.ProofNode
-         * @static
-         * @param {types.IProofNode} message ProofNode message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        ProofNode.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a ProofNode message from the specified reader or buffer.
-         * @function decode
-         * @memberof types.ProofNode
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {types.ProofNode} ProofNode
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        ProofNode.decode = function decode(reader, length, error) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.ProofNode();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                if (tag === error)
-                    break;
-                switch (tag >>> 3) {
-                case 1: {
-                        message.key = reader.bytes();
-                        break;
-                    }
-                case 2: {
-                        message.value = reader.bytes();
-                        break;
-                    }
-                case 3: {
-                        message.bitmask = reader.int32();
-                        break;
-                    }
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a ProofNode message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof types.ProofNode
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {types.ProofNode} ProofNode
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        ProofNode.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a ProofNode message.
-         * @function verify
-         * @memberof types.ProofNode
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        ProofNode.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.key != null && message.hasOwnProperty("key"))
-                if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
-                    return "key: buffer expected";
-            if (message.value != null && message.hasOwnProperty("value"))
-                if (!(message.value && typeof message.value.length === "number" || $util.isString(message.value)))
-                    return "value: buffer expected";
-            if (message.bitmask != null && message.hasOwnProperty("bitmask"))
-                if (!$util.isInteger(message.bitmask))
-                    return "bitmask: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a ProofNode message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof types.ProofNode
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {types.ProofNode} ProofNode
-         */
-        ProofNode.fromObject = function fromObject(object) {
-            if (object instanceof $root.types.ProofNode)
-                return object;
-            var message = new $root.types.ProofNode();
-            if (object.key != null)
-                if (typeof object.key === "string")
-                    $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
-                else if (object.key.length >= 0)
-                    message.key = object.key;
-            if (object.value != null)
-                if (typeof object.value === "string")
-                    $util.base64.decode(object.value, message.value = $util.newBuffer($util.base64.length(object.value)), 0);
-                else if (object.value.length >= 0)
-                    message.value = object.value;
-            if (object.bitmask != null)
-                message.bitmask = object.bitmask | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a ProofNode message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof types.ProofNode
-         * @static
-         * @param {types.ProofNode} message ProofNode
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        ProofNode.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if (options.bytes === String)
-                    object.key = "";
-                else {
-                    object.key = [];
-                    if (options.bytes !== Array)
-                        object.key = $util.newBuffer(object.key);
-                }
-                if (options.bytes === String)
-                    object.value = "";
-                else {
-                    object.value = [];
-                    if (options.bytes !== Array)
-                        object.value = $util.newBuffer(object.value);
-                }
-                object.bitmask = 0;
-            }
-            if (message.key != null && message.hasOwnProperty("key"))
-                object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
-            if (message.value != null && message.hasOwnProperty("value"))
-                object.value = options.bytes === String ? $util.base64.encode(message.value, 0, message.value.length) : options.bytes === Array ? Array.prototype.slice.call(message.value) : message.value;
-            if (message.bitmask != null && message.hasOwnProperty("bitmask"))
-                object.bitmask = message.bitmask;
-            return object;
-        };
-
-        /**
-         * Converts this ProofNode to JSON.
-         * @function toJSON
-         * @memberof types.ProofNode
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        ProofNode.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        /**
-         * Gets the default type url for ProofNode
-         * @function getTypeUrl
-         * @memberof types.ProofNode
-         * @static
-         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
-         * @returns {string} The default type url
-         */
-        ProofNode.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
-            if (typeUrlPrefix === undefined) {
-                typeUrlPrefix = "type.googleapis.com";
-            }
-            return typeUrlPrefix + "/types.ProofNode";
-        };
-
-        return ProofNode;
     })();
 
     types.PluginStateWriteRequest = (function() {
@@ -10505,6 +10041,3985 @@ $root.types = (function() {
         };
 
         return Signature;
+    })();
+
+    types.MessageFaucetClaim = (function() {
+
+        /**
+         * Properties of a MessageFaucetClaim.
+         * @memberof types
+         * @interface IMessageFaucetClaim
+         * @property {Uint8Array|null} [address] MessageFaucetClaim address
+         */
+
+        /**
+         * Constructs a new MessageFaucetClaim.
+         * @memberof types
+         * @classdesc Represents a MessageFaucetClaim.
+         * @implements IMessageFaucetClaim
+         * @constructor
+         * @param {types.IMessageFaucetClaim=} [properties] Properties to set
+         */
+        function MessageFaucetClaim(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageFaucetClaim address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageFaucetClaim
+         * @instance
+         */
+        MessageFaucetClaim.prototype.address = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageFaucetClaim instance using the specified properties.
+         * @function create
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {types.IMessageFaucetClaim=} [properties] Properties to set
+         * @returns {types.MessageFaucetClaim} MessageFaucetClaim instance
+         */
+        MessageFaucetClaim.create = function create(properties) {
+            return new MessageFaucetClaim(properties);
+        };
+
+        /**
+         * Encodes the specified MessageFaucetClaim message. Does not implicitly {@link types.MessageFaucetClaim.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {types.IMessageFaucetClaim} message MessageFaucetClaim message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageFaucetClaim.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageFaucetClaim message, length delimited. Does not implicitly {@link types.MessageFaucetClaim.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {types.IMessageFaucetClaim} message MessageFaucetClaim message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageFaucetClaim.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageFaucetClaim message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageFaucetClaim} MessageFaucetClaim
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageFaucetClaim.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageFaucetClaim();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageFaucetClaim message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageFaucetClaim} MessageFaucetClaim
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageFaucetClaim.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageFaucetClaim message.
+         * @function verify
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageFaucetClaim.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageFaucetClaim message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageFaucetClaim} MessageFaucetClaim
+         */
+        MessageFaucetClaim.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageFaucetClaim)
+                return object;
+            var message = new $root.types.MessageFaucetClaim();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageFaucetClaim message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {types.MessageFaucetClaim} message MessageFaucetClaim
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageFaucetClaim.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            return object;
+        };
+
+        /**
+         * Converts this MessageFaucetClaim to JSON.
+         * @function toJSON
+         * @memberof types.MessageFaucetClaim
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageFaucetClaim.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageFaucetClaim
+         * @function getTypeUrl
+         * @memberof types.MessageFaucetClaim
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageFaucetClaim.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageFaucetClaim";
+        };
+
+        return MessageFaucetClaim;
+    })();
+
+    types.MessageSetParams = (function() {
+
+        /**
+         * Properties of a MessageSetParams.
+         * @memberof types
+         * @interface IMessageSetParams
+         * @property {Uint8Array|null} [address] MessageSetParams address
+         * @property {string|null} [paramsJson] MessageSetParams paramsJson
+         */
+
+        /**
+         * Constructs a new MessageSetParams.
+         * @memberof types
+         * @classdesc Represents a MessageSetParams.
+         * @implements IMessageSetParams
+         * @constructor
+         * @param {types.IMessageSetParams=} [properties] Properties to set
+         */
+        function MessageSetParams(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageSetParams address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageSetParams
+         * @instance
+         */
+        MessageSetParams.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageSetParams paramsJson.
+         * @member {string} paramsJson
+         * @memberof types.MessageSetParams
+         * @instance
+         */
+        MessageSetParams.prototype.paramsJson = "";
+
+        /**
+         * Creates a new MessageSetParams instance using the specified properties.
+         * @function create
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {types.IMessageSetParams=} [properties] Properties to set
+         * @returns {types.MessageSetParams} MessageSetParams instance
+         */
+        MessageSetParams.create = function create(properties) {
+            return new MessageSetParams(properties);
+        };
+
+        /**
+         * Encodes the specified MessageSetParams message. Does not implicitly {@link types.MessageSetParams.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {types.IMessageSetParams} message MessageSetParams message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageSetParams.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.paramsJson != null && Object.hasOwnProperty.call(message, "paramsJson"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.paramsJson);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageSetParams message, length delimited. Does not implicitly {@link types.MessageSetParams.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {types.IMessageSetParams} message MessageSetParams message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageSetParams.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageSetParams message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageSetParams} MessageSetParams
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageSetParams.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageSetParams();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.paramsJson = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageSetParams message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageSetParams} MessageSetParams
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageSetParams.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageSetParams message.
+         * @function verify
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageSetParams.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.paramsJson != null && message.hasOwnProperty("paramsJson"))
+                if (!$util.isString(message.paramsJson))
+                    return "paramsJson: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageSetParams message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageSetParams} MessageSetParams
+         */
+        MessageSetParams.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageSetParams)
+                return object;
+            var message = new $root.types.MessageSetParams();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.paramsJson != null)
+                message.paramsJson = String(object.paramsJson);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageSetParams message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {types.MessageSetParams} message MessageSetParams
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageSetParams.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                object.paramsJson = "";
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.paramsJson != null && message.hasOwnProperty("paramsJson"))
+                object.paramsJson = message.paramsJson;
+            return object;
+        };
+
+        /**
+         * Converts this MessageSetParams to JSON.
+         * @function toJSON
+         * @memberof types.MessageSetParams
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageSetParams.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageSetParams
+         * @function getTypeUrl
+         * @memberof types.MessageSetParams
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageSetParams.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageSetParams";
+        };
+
+        return MessageSetParams;
+    })();
+
+    types.MessageCreateCharacter = (function() {
+
+        /**
+         * Properties of a MessageCreateCharacter.
+         * @memberof types
+         * @interface IMessageCreateCharacter
+         * @property {Uint8Array|null} [address] MessageCreateCharacter address
+         * @property {string|null} [name] MessageCreateCharacter name
+         * @property {string|null} [classId] MessageCreateCharacter classId
+         * @property {Uint8Array|null} [commit] MessageCreateCharacter commit
+         */
+
+        /**
+         * Constructs a new MessageCreateCharacter.
+         * @memberof types
+         * @classdesc Represents a MessageCreateCharacter.
+         * @implements IMessageCreateCharacter
+         * @constructor
+         * @param {types.IMessageCreateCharacter=} [properties] Properties to set
+         */
+        function MessageCreateCharacter(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageCreateCharacter address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageCreateCharacter
+         * @instance
+         */
+        MessageCreateCharacter.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageCreateCharacter name.
+         * @member {string} name
+         * @memberof types.MessageCreateCharacter
+         * @instance
+         */
+        MessageCreateCharacter.prototype.name = "";
+
+        /**
+         * MessageCreateCharacter classId.
+         * @member {string} classId
+         * @memberof types.MessageCreateCharacter
+         * @instance
+         */
+        MessageCreateCharacter.prototype.classId = "";
+
+        /**
+         * MessageCreateCharacter commit.
+         * @member {Uint8Array} commit
+         * @memberof types.MessageCreateCharacter
+         * @instance
+         */
+        MessageCreateCharacter.prototype.commit = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageCreateCharacter instance using the specified properties.
+         * @function create
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {types.IMessageCreateCharacter=} [properties] Properties to set
+         * @returns {types.MessageCreateCharacter} MessageCreateCharacter instance
+         */
+        MessageCreateCharacter.create = function create(properties) {
+            return new MessageCreateCharacter(properties);
+        };
+
+        /**
+         * Encodes the specified MessageCreateCharacter message. Does not implicitly {@link types.MessageCreateCharacter.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {types.IMessageCreateCharacter} message MessageCreateCharacter message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageCreateCharacter.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.classId != null && Object.hasOwnProperty.call(message, "classId"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.classId);
+            if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
+                writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.commit);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageCreateCharacter message, length delimited. Does not implicitly {@link types.MessageCreateCharacter.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {types.IMessageCreateCharacter} message MessageCreateCharacter message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageCreateCharacter.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageCreateCharacter message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageCreateCharacter} MessageCreateCharacter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageCreateCharacter.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageCreateCharacter();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.name = reader.string();
+                        break;
+                    }
+                case 3: {
+                        message.classId = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.commit = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageCreateCharacter message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageCreateCharacter} MessageCreateCharacter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageCreateCharacter.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageCreateCharacter message.
+         * @function verify
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageCreateCharacter.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.classId != null && message.hasOwnProperty("classId"))
+                if (!$util.isString(message.classId))
+                    return "classId: string expected";
+            if (message.commit != null && message.hasOwnProperty("commit"))
+                if (!(message.commit && typeof message.commit.length === "number" || $util.isString(message.commit)))
+                    return "commit: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageCreateCharacter message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageCreateCharacter} MessageCreateCharacter
+         */
+        MessageCreateCharacter.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageCreateCharacter)
+                return object;
+            var message = new $root.types.MessageCreateCharacter();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.classId != null)
+                message.classId = String(object.classId);
+            if (object.commit != null)
+                if (typeof object.commit === "string")
+                    $util.base64.decode(object.commit, message.commit = $util.newBuffer($util.base64.length(object.commit)), 0);
+                else if (object.commit.length >= 0)
+                    message.commit = object.commit;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageCreateCharacter message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {types.MessageCreateCharacter} message MessageCreateCharacter
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageCreateCharacter.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                object.name = "";
+                object.classId = "";
+                if (options.bytes === String)
+                    object.commit = "";
+                else {
+                    object.commit = [];
+                    if (options.bytes !== Array)
+                        object.commit = $util.newBuffer(object.commit);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.classId != null && message.hasOwnProperty("classId"))
+                object.classId = message.classId;
+            if (message.commit != null && message.hasOwnProperty("commit"))
+                object.commit = options.bytes === String ? $util.base64.encode(message.commit, 0, message.commit.length) : options.bytes === Array ? Array.prototype.slice.call(message.commit) : message.commit;
+            return object;
+        };
+
+        /**
+         * Converts this MessageCreateCharacter to JSON.
+         * @function toJSON
+         * @memberof types.MessageCreateCharacter
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageCreateCharacter.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageCreateCharacter
+         * @function getTypeUrl
+         * @memberof types.MessageCreateCharacter
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageCreateCharacter.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageCreateCharacter";
+        };
+
+        return MessageCreateCharacter;
+    })();
+
+    types.MessageAssignStats = (function() {
+
+        /**
+         * Properties of a MessageAssignStats.
+         * @memberof types
+         * @interface IMessageAssignStats
+         * @property {Uint8Array|null} [address] MessageAssignStats address
+         * @property {Uint8Array|null} [charId] MessageAssignStats charId
+         * @property {Array.<number>|null} [permutation] MessageAssignStats permutation
+         */
+
+        /**
+         * Constructs a new MessageAssignStats.
+         * @memberof types
+         * @classdesc Represents a MessageAssignStats.
+         * @implements IMessageAssignStats
+         * @constructor
+         * @param {types.IMessageAssignStats=} [properties] Properties to set
+         */
+        function MessageAssignStats(properties) {
+            this.permutation = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageAssignStats address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageAssignStats
+         * @instance
+         */
+        MessageAssignStats.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageAssignStats charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageAssignStats
+         * @instance
+         */
+        MessageAssignStats.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageAssignStats permutation.
+         * @member {Array.<number>} permutation
+         * @memberof types.MessageAssignStats
+         * @instance
+         */
+        MessageAssignStats.prototype.permutation = $util.emptyArray;
+
+        /**
+         * Creates a new MessageAssignStats instance using the specified properties.
+         * @function create
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {types.IMessageAssignStats=} [properties] Properties to set
+         * @returns {types.MessageAssignStats} MessageAssignStats instance
+         */
+        MessageAssignStats.create = function create(properties) {
+            return new MessageAssignStats(properties);
+        };
+
+        /**
+         * Encodes the specified MessageAssignStats message. Does not implicitly {@link types.MessageAssignStats.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {types.IMessageAssignStats} message MessageAssignStats message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageAssignStats.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.permutation != null && message.permutation.length) {
+                writer.uint32(/* id 3, wireType 2 =*/26).fork();
+                for (var i = 0; i < message.permutation.length; ++i)
+                    writer.uint32(message.permutation[i]);
+                writer.ldelim();
+            }
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageAssignStats message, length delimited. Does not implicitly {@link types.MessageAssignStats.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {types.IMessageAssignStats} message MessageAssignStats message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageAssignStats.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageAssignStats message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageAssignStats} MessageAssignStats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageAssignStats.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageAssignStats();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        if (!(message.permutation && message.permutation.length))
+                            message.permutation = [];
+                        if ((tag & 7) === 2) {
+                            var end2 = reader.uint32() + reader.pos;
+                            while (reader.pos < end2)
+                                message.permutation.push(reader.uint32());
+                        } else
+                            message.permutation.push(reader.uint32());
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageAssignStats message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageAssignStats} MessageAssignStats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageAssignStats.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageAssignStats message.
+         * @function verify
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageAssignStats.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.permutation != null && message.hasOwnProperty("permutation")) {
+                if (!Array.isArray(message.permutation))
+                    return "permutation: array expected";
+                for (var i = 0; i < message.permutation.length; ++i)
+                    if (!$util.isInteger(message.permutation[i]))
+                        return "permutation: integer[] expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MessageAssignStats message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageAssignStats} MessageAssignStats
+         */
+        MessageAssignStats.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageAssignStats)
+                return object;
+            var message = new $root.types.MessageAssignStats();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.permutation) {
+                if (!Array.isArray(object.permutation))
+                    throw TypeError(".types.MessageAssignStats.permutation: array expected");
+                message.permutation = [];
+                for (var i = 0; i < object.permutation.length; ++i)
+                    message.permutation[i] = object.permutation[i] >>> 0;
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageAssignStats message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {types.MessageAssignStats} message MessageAssignStats
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageAssignStats.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.permutation = [];
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.permutation && message.permutation.length) {
+                object.permutation = [];
+                for (var j = 0; j < message.permutation.length; ++j)
+                    object.permutation[j] = message.permutation[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MessageAssignStats to JSON.
+         * @function toJSON
+         * @memberof types.MessageAssignStats
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageAssignStats.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageAssignStats
+         * @function getTypeUrl
+         * @memberof types.MessageAssignStats
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageAssignStats.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageAssignStats";
+        };
+
+        return MessageAssignStats;
+    })();
+
+    types.MessageEnterDungeon = (function() {
+
+        /**
+         * Properties of a MessageEnterDungeon.
+         * @memberof types
+         * @interface IMessageEnterDungeon
+         * @property {Uint8Array|null} [address] MessageEnterDungeon address
+         * @property {Uint8Array|null} [charId] MessageEnterDungeon charId
+         */
+
+        /**
+         * Constructs a new MessageEnterDungeon.
+         * @memberof types
+         * @classdesc Represents a MessageEnterDungeon.
+         * @implements IMessageEnterDungeon
+         * @constructor
+         * @param {types.IMessageEnterDungeon=} [properties] Properties to set
+         */
+        function MessageEnterDungeon(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageEnterDungeon address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageEnterDungeon
+         * @instance
+         */
+        MessageEnterDungeon.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageEnterDungeon charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageEnterDungeon
+         * @instance
+         */
+        MessageEnterDungeon.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageEnterDungeon instance using the specified properties.
+         * @function create
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {types.IMessageEnterDungeon=} [properties] Properties to set
+         * @returns {types.MessageEnterDungeon} MessageEnterDungeon instance
+         */
+        MessageEnterDungeon.create = function create(properties) {
+            return new MessageEnterDungeon(properties);
+        };
+
+        /**
+         * Encodes the specified MessageEnterDungeon message. Does not implicitly {@link types.MessageEnterDungeon.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {types.IMessageEnterDungeon} message MessageEnterDungeon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageEnterDungeon.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageEnterDungeon message, length delimited. Does not implicitly {@link types.MessageEnterDungeon.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {types.IMessageEnterDungeon} message MessageEnterDungeon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageEnterDungeon.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageEnterDungeon message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageEnterDungeon} MessageEnterDungeon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageEnterDungeon.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageEnterDungeon();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageEnterDungeon message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageEnterDungeon} MessageEnterDungeon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageEnterDungeon.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageEnterDungeon message.
+         * @function verify
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageEnterDungeon.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageEnterDungeon message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageEnterDungeon} MessageEnterDungeon
+         */
+        MessageEnterDungeon.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageEnterDungeon)
+                return object;
+            var message = new $root.types.MessageEnterDungeon();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageEnterDungeon message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {types.MessageEnterDungeon} message MessageEnterDungeon
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageEnterDungeon.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            return object;
+        };
+
+        /**
+         * Converts this MessageEnterDungeon to JSON.
+         * @function toJSON
+         * @memberof types.MessageEnterDungeon
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageEnterDungeon.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageEnterDungeon
+         * @function getTypeUrl
+         * @memberof types.MessageEnterDungeon
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageEnterDungeon.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageEnterDungeon";
+        };
+
+        return MessageEnterDungeon;
+    })();
+
+    types.MessageAct = (function() {
+
+        /**
+         * Properties of a MessageAct.
+         * @memberof types
+         * @interface IMessageAct
+         * @property {Uint8Array|null} [address] MessageAct address
+         * @property {Uint8Array|null} [charId] MessageAct charId
+         * @property {string|null} [kind] MessageAct kind
+         * @property {string|null} [actionId] MessageAct actionId
+         * @property {string|null} [target] MessageAct target
+         * @property {string|null} [itemId] MessageAct itemId
+         * @property {string|null} [ability] MessageAct ability
+         * @property {number|null} [toLevel] MessageAct toLevel
+         * @property {number|null} [toRoom] MessageAct toRoom
+         * @property {string|null} [lootRef] MessageAct lootRef
+         * @property {Uint8Array|null} [commit] MessageAct commit
+         */
+
+        /**
+         * Constructs a new MessageAct.
+         * @memberof types
+         * @classdesc Represents a MessageAct.
+         * @implements IMessageAct
+         * @constructor
+         * @param {types.IMessageAct=} [properties] Properties to set
+         */
+        function MessageAct(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageAct address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageAct charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageAct kind.
+         * @member {string} kind
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.kind = "";
+
+        /**
+         * MessageAct actionId.
+         * @member {string} actionId
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.actionId = "";
+
+        /**
+         * MessageAct target.
+         * @member {string} target
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.target = "";
+
+        /**
+         * MessageAct itemId.
+         * @member {string} itemId
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.itemId = "";
+
+        /**
+         * MessageAct ability.
+         * @member {string} ability
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.ability = "";
+
+        /**
+         * MessageAct toLevel.
+         * @member {number} toLevel
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.toLevel = 0;
+
+        /**
+         * MessageAct toRoom.
+         * @member {number} toRoom
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.toRoom = 0;
+
+        /**
+         * MessageAct lootRef.
+         * @member {string} lootRef
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.lootRef = "";
+
+        /**
+         * MessageAct commit.
+         * @member {Uint8Array} commit
+         * @memberof types.MessageAct
+         * @instance
+         */
+        MessageAct.prototype.commit = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageAct instance using the specified properties.
+         * @function create
+         * @memberof types.MessageAct
+         * @static
+         * @param {types.IMessageAct=} [properties] Properties to set
+         * @returns {types.MessageAct} MessageAct instance
+         */
+        MessageAct.create = function create(properties) {
+            return new MessageAct(properties);
+        };
+
+        /**
+         * Encodes the specified MessageAct message. Does not implicitly {@link types.MessageAct.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageAct
+         * @static
+         * @param {types.IMessageAct} message MessageAct message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageAct.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.kind != null && Object.hasOwnProperty.call(message, "kind"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.kind);
+            if (message.actionId != null && Object.hasOwnProperty.call(message, "actionId"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.actionId);
+            if (message.target != null && Object.hasOwnProperty.call(message, "target"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.target);
+            if (message.itemId != null && Object.hasOwnProperty.call(message, "itemId"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.itemId);
+            if (message.ability != null && Object.hasOwnProperty.call(message, "ability"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.ability);
+            if (message.toLevel != null && Object.hasOwnProperty.call(message, "toLevel"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.toLevel);
+            if (message.toRoom != null && Object.hasOwnProperty.call(message, "toRoom"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.toRoom);
+            if (message.lootRef != null && Object.hasOwnProperty.call(message, "lootRef"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.lootRef);
+            if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
+                writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.commit);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageAct message, length delimited. Does not implicitly {@link types.MessageAct.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageAct
+         * @static
+         * @param {types.IMessageAct} message MessageAct message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageAct.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageAct message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageAct
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageAct} MessageAct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageAct.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageAct();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.kind = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.actionId = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.target = reader.string();
+                        break;
+                    }
+                case 6: {
+                        message.itemId = reader.string();
+                        break;
+                    }
+                case 7: {
+                        message.ability = reader.string();
+                        break;
+                    }
+                case 8: {
+                        message.toLevel = reader.uint32();
+                        break;
+                    }
+                case 9: {
+                        message.toRoom = reader.uint32();
+                        break;
+                    }
+                case 10: {
+                        message.lootRef = reader.string();
+                        break;
+                    }
+                case 11: {
+                        message.commit = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageAct message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageAct
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageAct} MessageAct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageAct.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageAct message.
+         * @function verify
+         * @memberof types.MessageAct
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageAct.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                if (!$util.isString(message.kind))
+                    return "kind: string expected";
+            if (message.actionId != null && message.hasOwnProperty("actionId"))
+                if (!$util.isString(message.actionId))
+                    return "actionId: string expected";
+            if (message.target != null && message.hasOwnProperty("target"))
+                if (!$util.isString(message.target))
+                    return "target: string expected";
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                if (!$util.isString(message.itemId))
+                    return "itemId: string expected";
+            if (message.ability != null && message.hasOwnProperty("ability"))
+                if (!$util.isString(message.ability))
+                    return "ability: string expected";
+            if (message.toLevel != null && message.hasOwnProperty("toLevel"))
+                if (!$util.isInteger(message.toLevel))
+                    return "toLevel: integer expected";
+            if (message.toRoom != null && message.hasOwnProperty("toRoom"))
+                if (!$util.isInteger(message.toRoom))
+                    return "toRoom: integer expected";
+            if (message.lootRef != null && message.hasOwnProperty("lootRef"))
+                if (!$util.isString(message.lootRef))
+                    return "lootRef: string expected";
+            if (message.commit != null && message.hasOwnProperty("commit"))
+                if (!(message.commit && typeof message.commit.length === "number" || $util.isString(message.commit)))
+                    return "commit: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageAct message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageAct
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageAct} MessageAct
+         */
+        MessageAct.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageAct)
+                return object;
+            var message = new $root.types.MessageAct();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.kind != null)
+                message.kind = String(object.kind);
+            if (object.actionId != null)
+                message.actionId = String(object.actionId);
+            if (object.target != null)
+                message.target = String(object.target);
+            if (object.itemId != null)
+                message.itemId = String(object.itemId);
+            if (object.ability != null)
+                message.ability = String(object.ability);
+            if (object.toLevel != null)
+                message.toLevel = object.toLevel >>> 0;
+            if (object.toRoom != null)
+                message.toRoom = object.toRoom >>> 0;
+            if (object.lootRef != null)
+                message.lootRef = String(object.lootRef);
+            if (object.commit != null)
+                if (typeof object.commit === "string")
+                    $util.base64.decode(object.commit, message.commit = $util.newBuffer($util.base64.length(object.commit)), 0);
+                else if (object.commit.length >= 0)
+                    message.commit = object.commit;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageAct message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageAct
+         * @static
+         * @param {types.MessageAct} message MessageAct
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageAct.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                object.kind = "";
+                object.actionId = "";
+                object.target = "";
+                object.itemId = "";
+                object.ability = "";
+                object.toLevel = 0;
+                object.toRoom = 0;
+                object.lootRef = "";
+                if (options.bytes === String)
+                    object.commit = "";
+                else {
+                    object.commit = [];
+                    if (options.bytes !== Array)
+                        object.commit = $util.newBuffer(object.commit);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                object.kind = message.kind;
+            if (message.actionId != null && message.hasOwnProperty("actionId"))
+                object.actionId = message.actionId;
+            if (message.target != null && message.hasOwnProperty("target"))
+                object.target = message.target;
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                object.itemId = message.itemId;
+            if (message.ability != null && message.hasOwnProperty("ability"))
+                object.ability = message.ability;
+            if (message.toLevel != null && message.hasOwnProperty("toLevel"))
+                object.toLevel = message.toLevel;
+            if (message.toRoom != null && message.hasOwnProperty("toRoom"))
+                object.toRoom = message.toRoom;
+            if (message.lootRef != null && message.hasOwnProperty("lootRef"))
+                object.lootRef = message.lootRef;
+            if (message.commit != null && message.hasOwnProperty("commit"))
+                object.commit = options.bytes === String ? $util.base64.encode(message.commit, 0, message.commit.length) : options.bytes === Array ? Array.prototype.slice.call(message.commit) : message.commit;
+            return object;
+        };
+
+        /**
+         * Converts this MessageAct to JSON.
+         * @function toJSON
+         * @memberof types.MessageAct
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageAct.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageAct
+         * @function getTypeUrl
+         * @memberof types.MessageAct
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageAct.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageAct";
+        };
+
+        return MessageAct;
+    })();
+
+    types.MessageReveal = (function() {
+
+        /**
+         * Properties of a MessageReveal.
+         * @memberof types
+         * @interface IMessageReveal
+         * @property {Uint8Array|null} [address] MessageReveal address
+         * @property {Uint8Array|null} [rollId] MessageReveal rollId
+         * @property {Uint8Array|null} [secret] MessageReveal secret
+         */
+
+        /**
+         * Constructs a new MessageReveal.
+         * @memberof types
+         * @classdesc Represents a MessageReveal.
+         * @implements IMessageReveal
+         * @constructor
+         * @param {types.IMessageReveal=} [properties] Properties to set
+         */
+        function MessageReveal(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageReveal address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageReveal
+         * @instance
+         */
+        MessageReveal.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageReveal rollId.
+         * @member {Uint8Array} rollId
+         * @memberof types.MessageReveal
+         * @instance
+         */
+        MessageReveal.prototype.rollId = $util.newBuffer([]);
+
+        /**
+         * MessageReveal secret.
+         * @member {Uint8Array} secret
+         * @memberof types.MessageReveal
+         * @instance
+         */
+        MessageReveal.prototype.secret = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageReveal instance using the specified properties.
+         * @function create
+         * @memberof types.MessageReveal
+         * @static
+         * @param {types.IMessageReveal=} [properties] Properties to set
+         * @returns {types.MessageReveal} MessageReveal instance
+         */
+        MessageReveal.create = function create(properties) {
+            return new MessageReveal(properties);
+        };
+
+        /**
+         * Encodes the specified MessageReveal message. Does not implicitly {@link types.MessageReveal.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageReveal
+         * @static
+         * @param {types.IMessageReveal} message MessageReveal message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageReveal.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.rollId != null && Object.hasOwnProperty.call(message, "rollId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.rollId);
+            if (message.secret != null && Object.hasOwnProperty.call(message, "secret"))
+                writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.secret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageReveal message, length delimited. Does not implicitly {@link types.MessageReveal.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageReveal
+         * @static
+         * @param {types.IMessageReveal} message MessageReveal message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageReveal.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageReveal message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageReveal
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageReveal} MessageReveal
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageReveal.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageReveal();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.rollId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.secret = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageReveal message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageReveal
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageReveal} MessageReveal
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageReveal.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageReveal message.
+         * @function verify
+         * @memberof types.MessageReveal
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageReveal.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.rollId != null && message.hasOwnProperty("rollId"))
+                if (!(message.rollId && typeof message.rollId.length === "number" || $util.isString(message.rollId)))
+                    return "rollId: buffer expected";
+            if (message.secret != null && message.hasOwnProperty("secret"))
+                if (!(message.secret && typeof message.secret.length === "number" || $util.isString(message.secret)))
+                    return "secret: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageReveal message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageReveal
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageReveal} MessageReveal
+         */
+        MessageReveal.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageReveal)
+                return object;
+            var message = new $root.types.MessageReveal();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.rollId != null)
+                if (typeof object.rollId === "string")
+                    $util.base64.decode(object.rollId, message.rollId = $util.newBuffer($util.base64.length(object.rollId)), 0);
+                else if (object.rollId.length >= 0)
+                    message.rollId = object.rollId;
+            if (object.secret != null)
+                if (typeof object.secret === "string")
+                    $util.base64.decode(object.secret, message.secret = $util.newBuffer($util.base64.length(object.secret)), 0);
+                else if (object.secret.length >= 0)
+                    message.secret = object.secret;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageReveal message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageReveal
+         * @static
+         * @param {types.MessageReveal} message MessageReveal
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageReveal.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.rollId = "";
+                else {
+                    object.rollId = [];
+                    if (options.bytes !== Array)
+                        object.rollId = $util.newBuffer(object.rollId);
+                }
+                if (options.bytes === String)
+                    object.secret = "";
+                else {
+                    object.secret = [];
+                    if (options.bytes !== Array)
+                        object.secret = $util.newBuffer(object.secret);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.rollId != null && message.hasOwnProperty("rollId"))
+                object.rollId = options.bytes === String ? $util.base64.encode(message.rollId, 0, message.rollId.length) : options.bytes === Array ? Array.prototype.slice.call(message.rollId) : message.rollId;
+            if (message.secret != null && message.hasOwnProperty("secret"))
+                object.secret = options.bytes === String ? $util.base64.encode(message.secret, 0, message.secret.length) : options.bytes === Array ? Array.prototype.slice.call(message.secret) : message.secret;
+            return object;
+        };
+
+        /**
+         * Converts this MessageReveal to JSON.
+         * @function toJSON
+         * @memberof types.MessageReveal
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageReveal.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageReveal
+         * @function getTypeUrl
+         * @memberof types.MessageReveal
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageReveal.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageReveal";
+        };
+
+        return MessageReveal;
+    })();
+
+    types.MessageGive = (function() {
+
+        /**
+         * Properties of a MessageGive.
+         * @memberof types
+         * @interface IMessageGive
+         * @property {Uint8Array|null} [address] MessageGive address
+         * @property {Uint8Array|null} [charId] MessageGive charId
+         * @property {Uint8Array|null} [toCharId] MessageGive toCharId
+         * @property {string|null} [itemId] MessageGive itemId
+         * @property {number|Long|null} [gold] MessageGive gold
+         */
+
+        /**
+         * Constructs a new MessageGive.
+         * @memberof types
+         * @classdesc Represents a MessageGive.
+         * @implements IMessageGive
+         * @constructor
+         * @param {types.IMessageGive=} [properties] Properties to set
+         */
+        function MessageGive(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageGive address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageGive
+         * @instance
+         */
+        MessageGive.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageGive charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageGive
+         * @instance
+         */
+        MessageGive.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageGive toCharId.
+         * @member {Uint8Array} toCharId
+         * @memberof types.MessageGive
+         * @instance
+         */
+        MessageGive.prototype.toCharId = $util.newBuffer([]);
+
+        /**
+         * MessageGive itemId.
+         * @member {string} itemId
+         * @memberof types.MessageGive
+         * @instance
+         */
+        MessageGive.prototype.itemId = "";
+
+        /**
+         * MessageGive gold.
+         * @member {number|Long} gold
+         * @memberof types.MessageGive
+         * @instance
+         */
+        MessageGive.prototype.gold = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new MessageGive instance using the specified properties.
+         * @function create
+         * @memberof types.MessageGive
+         * @static
+         * @param {types.IMessageGive=} [properties] Properties to set
+         * @returns {types.MessageGive} MessageGive instance
+         */
+        MessageGive.create = function create(properties) {
+            return new MessageGive(properties);
+        };
+
+        /**
+         * Encodes the specified MessageGive message. Does not implicitly {@link types.MessageGive.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageGive
+         * @static
+         * @param {types.IMessageGive} message MessageGive message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageGive.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.toCharId != null && Object.hasOwnProperty.call(message, "toCharId"))
+                writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.toCharId);
+            if (message.itemId != null && Object.hasOwnProperty.call(message, "itemId"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.itemId);
+            if (message.gold != null && Object.hasOwnProperty.call(message, "gold"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageGive message, length delimited. Does not implicitly {@link types.MessageGive.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageGive
+         * @static
+         * @param {types.IMessageGive} message MessageGive message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageGive.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageGive message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageGive
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageGive} MessageGive
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageGive.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageGive();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.toCharId = reader.bytes();
+                        break;
+                    }
+                case 4: {
+                        message.itemId = reader.string();
+                        break;
+                    }
+                case 5: {
+                        message.gold = reader.uint64();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageGive message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageGive
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageGive} MessageGive
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageGive.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageGive message.
+         * @function verify
+         * @memberof types.MessageGive
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageGive.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.toCharId != null && message.hasOwnProperty("toCharId"))
+                if (!(message.toCharId && typeof message.toCharId.length === "number" || $util.isString(message.toCharId)))
+                    return "toCharId: buffer expected";
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                if (!$util.isString(message.itemId))
+                    return "itemId: string expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold) && !(message.gold && $util.isInteger(message.gold.low) && $util.isInteger(message.gold.high)))
+                    return "gold: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageGive message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageGive
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageGive} MessageGive
+         */
+        MessageGive.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageGive)
+                return object;
+            var message = new $root.types.MessageGive();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.toCharId != null)
+                if (typeof object.toCharId === "string")
+                    $util.base64.decode(object.toCharId, message.toCharId = $util.newBuffer($util.base64.length(object.toCharId)), 0);
+                else if (object.toCharId.length >= 0)
+                    message.toCharId = object.toCharId;
+            if (object.itemId != null)
+                message.itemId = String(object.itemId);
+            if (object.gold != null)
+                if ($util.Long)
+                    (message.gold = $util.Long.fromValue(object.gold)).unsigned = true;
+                else if (typeof object.gold === "string")
+                    message.gold = parseInt(object.gold, 10);
+                else if (typeof object.gold === "number")
+                    message.gold = object.gold;
+                else if (typeof object.gold === "object")
+                    message.gold = new $util.LongBits(object.gold.low >>> 0, object.gold.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageGive message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageGive
+         * @static
+         * @param {types.MessageGive} message MessageGive
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageGive.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                if (options.bytes === String)
+                    object.toCharId = "";
+                else {
+                    object.toCharId = [];
+                    if (options.bytes !== Array)
+                        object.toCharId = $util.newBuffer(object.toCharId);
+                }
+                object.itemId = "";
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.gold = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.gold = options.longs === String ? "0" : 0;
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.toCharId != null && message.hasOwnProperty("toCharId"))
+                object.toCharId = options.bytes === String ? $util.base64.encode(message.toCharId, 0, message.toCharId.length) : options.bytes === Array ? Array.prototype.slice.call(message.toCharId) : message.toCharId;
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                object.itemId = message.itemId;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (typeof message.gold === "number")
+                    object.gold = options.longs === String ? String(message.gold) : message.gold;
+                else
+                    object.gold = options.longs === String ? $util.Long.prototype.toString.call(message.gold) : options.longs === Number ? new $util.LongBits(message.gold.low >>> 0, message.gold.high >>> 0).toNumber(true) : message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this MessageGive to JSON.
+         * @function toJSON
+         * @memberof types.MessageGive
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageGive.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageGive
+         * @function getTypeUrl
+         * @memberof types.MessageGive
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageGive.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageGive";
+        };
+
+        return MessageGive;
+    })();
+
+    types.MessageExtract = (function() {
+
+        /**
+         * Properties of a MessageExtract.
+         * @memberof types
+         * @interface IMessageExtract
+         * @property {Uint8Array|null} [address] MessageExtract address
+         * @property {Uint8Array|null} [charId] MessageExtract charId
+         */
+
+        /**
+         * Constructs a new MessageExtract.
+         * @memberof types
+         * @classdesc Represents a MessageExtract.
+         * @implements IMessageExtract
+         * @constructor
+         * @param {types.IMessageExtract=} [properties] Properties to set
+         */
+        function MessageExtract(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageExtract address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageExtract
+         * @instance
+         */
+        MessageExtract.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageExtract charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageExtract
+         * @instance
+         */
+        MessageExtract.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessageExtract instance using the specified properties.
+         * @function create
+         * @memberof types.MessageExtract
+         * @static
+         * @param {types.IMessageExtract=} [properties] Properties to set
+         * @returns {types.MessageExtract} MessageExtract instance
+         */
+        MessageExtract.create = function create(properties) {
+            return new MessageExtract(properties);
+        };
+
+        /**
+         * Encodes the specified MessageExtract message. Does not implicitly {@link types.MessageExtract.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageExtract
+         * @static
+         * @param {types.IMessageExtract} message MessageExtract message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageExtract.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageExtract message, length delimited. Does not implicitly {@link types.MessageExtract.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageExtract
+         * @static
+         * @param {types.IMessageExtract} message MessageExtract message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageExtract.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageExtract message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageExtract
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageExtract} MessageExtract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageExtract.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageExtract();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageExtract message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageExtract
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageExtract} MessageExtract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageExtract.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageExtract message.
+         * @function verify
+         * @memberof types.MessageExtract
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageExtract.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageExtract message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageExtract
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageExtract} MessageExtract
+         */
+        MessageExtract.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageExtract)
+                return object;
+            var message = new $root.types.MessageExtract();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageExtract message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageExtract
+         * @static
+         * @param {types.MessageExtract} message MessageExtract
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageExtract.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            return object;
+        };
+
+        /**
+         * Converts this MessageExtract to JSON.
+         * @function toJSON
+         * @memberof types.MessageExtract
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageExtract.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageExtract
+         * @function getTypeUrl
+         * @memberof types.MessageExtract
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageExtract.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageExtract";
+        };
+
+        return MessageExtract;
+    })();
+
+    types.MessageShopBuy = (function() {
+
+        /**
+         * Properties of a MessageShopBuy.
+         * @memberof types
+         * @interface IMessageShopBuy
+         * @property {Uint8Array|null} [address] MessageShopBuy address
+         * @property {Uint8Array|null} [charId] MessageShopBuy charId
+         * @property {string|null} [template] MessageShopBuy template
+         * @property {number|null} [qty] MessageShopBuy qty
+         */
+
+        /**
+         * Constructs a new MessageShopBuy.
+         * @memberof types
+         * @classdesc Represents a MessageShopBuy.
+         * @implements IMessageShopBuy
+         * @constructor
+         * @param {types.IMessageShopBuy=} [properties] Properties to set
+         */
+        function MessageShopBuy(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageShopBuy address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageShopBuy
+         * @instance
+         */
+        MessageShopBuy.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageShopBuy charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageShopBuy
+         * @instance
+         */
+        MessageShopBuy.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageShopBuy template.
+         * @member {string} template
+         * @memberof types.MessageShopBuy
+         * @instance
+         */
+        MessageShopBuy.prototype.template = "";
+
+        /**
+         * MessageShopBuy qty.
+         * @member {number} qty
+         * @memberof types.MessageShopBuy
+         * @instance
+         */
+        MessageShopBuy.prototype.qty = 0;
+
+        /**
+         * Creates a new MessageShopBuy instance using the specified properties.
+         * @function create
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {types.IMessageShopBuy=} [properties] Properties to set
+         * @returns {types.MessageShopBuy} MessageShopBuy instance
+         */
+        MessageShopBuy.create = function create(properties) {
+            return new MessageShopBuy(properties);
+        };
+
+        /**
+         * Encodes the specified MessageShopBuy message. Does not implicitly {@link types.MessageShopBuy.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {types.IMessageShopBuy} message MessageShopBuy message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageShopBuy.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.template != null && Object.hasOwnProperty.call(message, "template"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.template);
+            if (message.qty != null && Object.hasOwnProperty.call(message, "qty"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.qty);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageShopBuy message, length delimited. Does not implicitly {@link types.MessageShopBuy.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {types.IMessageShopBuy} message MessageShopBuy message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageShopBuy.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageShopBuy message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageShopBuy} MessageShopBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageShopBuy.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageShopBuy();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.template = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.qty = reader.uint32();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageShopBuy message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageShopBuy} MessageShopBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageShopBuy.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageShopBuy message.
+         * @function verify
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageShopBuy.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.template != null && message.hasOwnProperty("template"))
+                if (!$util.isString(message.template))
+                    return "template: string expected";
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                if (!$util.isInteger(message.qty))
+                    return "qty: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageShopBuy message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageShopBuy} MessageShopBuy
+         */
+        MessageShopBuy.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageShopBuy)
+                return object;
+            var message = new $root.types.MessageShopBuy();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.template != null)
+                message.template = String(object.template);
+            if (object.qty != null)
+                message.qty = object.qty >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageShopBuy message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {types.MessageShopBuy} message MessageShopBuy
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageShopBuy.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                object.template = "";
+                object.qty = 0;
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.template != null && message.hasOwnProperty("template"))
+                object.template = message.template;
+            if (message.qty != null && message.hasOwnProperty("qty"))
+                object.qty = message.qty;
+            return object;
+        };
+
+        /**
+         * Converts this MessageShopBuy to JSON.
+         * @function toJSON
+         * @memberof types.MessageShopBuy
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageShopBuy.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageShopBuy
+         * @function getTypeUrl
+         * @memberof types.MessageShopBuy
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageShopBuy.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageShopBuy";
+        };
+
+        return MessageShopBuy;
+    })();
+
+    types.MessageShopSell = (function() {
+
+        /**
+         * Properties of a MessageShopSell.
+         * @memberof types
+         * @interface IMessageShopSell
+         * @property {Uint8Array|null} [address] MessageShopSell address
+         * @property {Uint8Array|null} [charId] MessageShopSell charId
+         * @property {string|null} [itemId] MessageShopSell itemId
+         */
+
+        /**
+         * Constructs a new MessageShopSell.
+         * @memberof types
+         * @classdesc Represents a MessageShopSell.
+         * @implements IMessageShopSell
+         * @constructor
+         * @param {types.IMessageShopSell=} [properties] Properties to set
+         */
+        function MessageShopSell(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageShopSell address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageShopSell
+         * @instance
+         */
+        MessageShopSell.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageShopSell charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageShopSell
+         * @instance
+         */
+        MessageShopSell.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageShopSell itemId.
+         * @member {string} itemId
+         * @memberof types.MessageShopSell
+         * @instance
+         */
+        MessageShopSell.prototype.itemId = "";
+
+        /**
+         * Creates a new MessageShopSell instance using the specified properties.
+         * @function create
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {types.IMessageShopSell=} [properties] Properties to set
+         * @returns {types.MessageShopSell} MessageShopSell instance
+         */
+        MessageShopSell.create = function create(properties) {
+            return new MessageShopSell(properties);
+        };
+
+        /**
+         * Encodes the specified MessageShopSell message. Does not implicitly {@link types.MessageShopSell.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {types.IMessageShopSell} message MessageShopSell message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageShopSell.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.itemId != null && Object.hasOwnProperty.call(message, "itemId"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.itemId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageShopSell message, length delimited. Does not implicitly {@link types.MessageShopSell.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {types.IMessageShopSell} message MessageShopSell message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageShopSell.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageShopSell message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageShopSell} MessageShopSell
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageShopSell.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageShopSell();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.itemId = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageShopSell message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageShopSell} MessageShopSell
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageShopSell.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageShopSell message.
+         * @function verify
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageShopSell.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                if (!$util.isString(message.itemId))
+                    return "itemId: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageShopSell message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageShopSell} MessageShopSell
+         */
+        MessageShopSell.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageShopSell)
+                return object;
+            var message = new $root.types.MessageShopSell();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.itemId != null)
+                message.itemId = String(object.itemId);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageShopSell message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {types.MessageShopSell} message MessageShopSell
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageShopSell.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                object.itemId = "";
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                object.itemId = message.itemId;
+            return object;
+        };
+
+        /**
+         * Converts this MessageShopSell to JSON.
+         * @function toJSON
+         * @memberof types.MessageShopSell
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageShopSell.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageShopSell
+         * @function getTypeUrl
+         * @memberof types.MessageShopSell
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageShopSell.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageShopSell";
+        };
+
+        return MessageShopSell;
+    })();
+
+    types.MessageStashMove = (function() {
+
+        /**
+         * Properties of a MessageStashMove.
+         * @memberof types
+         * @interface IMessageStashMove
+         * @property {Uint8Array|null} [address] MessageStashMove address
+         * @property {Uint8Array|null} [charId] MessageStashMove charId
+         * @property {string|null} [itemId] MessageStashMove itemId
+         * @property {boolean|null} [toStash] MessageStashMove toStash
+         */
+
+        /**
+         * Constructs a new MessageStashMove.
+         * @memberof types
+         * @classdesc Represents a MessageStashMove.
+         * @implements IMessageStashMove
+         * @constructor
+         * @param {types.IMessageStashMove=} [properties] Properties to set
+         */
+        function MessageStashMove(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessageStashMove address.
+         * @member {Uint8Array} address
+         * @memberof types.MessageStashMove
+         * @instance
+         */
+        MessageStashMove.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessageStashMove charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessageStashMove
+         * @instance
+         */
+        MessageStashMove.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessageStashMove itemId.
+         * @member {string} itemId
+         * @memberof types.MessageStashMove
+         * @instance
+         */
+        MessageStashMove.prototype.itemId = "";
+
+        /**
+         * MessageStashMove toStash.
+         * @member {boolean} toStash
+         * @memberof types.MessageStashMove
+         * @instance
+         */
+        MessageStashMove.prototype.toStash = false;
+
+        /**
+         * Creates a new MessageStashMove instance using the specified properties.
+         * @function create
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {types.IMessageStashMove=} [properties] Properties to set
+         * @returns {types.MessageStashMove} MessageStashMove instance
+         */
+        MessageStashMove.create = function create(properties) {
+            return new MessageStashMove(properties);
+        };
+
+        /**
+         * Encodes the specified MessageStashMove message. Does not implicitly {@link types.MessageStashMove.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {types.IMessageStashMove} message MessageStashMove message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageStashMove.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message.itemId != null && Object.hasOwnProperty.call(message, "itemId"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.itemId);
+            if (message.toStash != null && Object.hasOwnProperty.call(message, "toStash"))
+                writer.uint32(/* id 4, wireType 0 =*/32).bool(message.toStash);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessageStashMove message, length delimited. Does not implicitly {@link types.MessageStashMove.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {types.IMessageStashMove} message MessageStashMove message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessageStashMove.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessageStashMove message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessageStashMove} MessageStashMove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageStashMove.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessageStashMove();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message.itemId = reader.string();
+                        break;
+                    }
+                case 4: {
+                        message.toStash = reader.bool();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessageStashMove message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessageStashMove} MessageStashMove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessageStashMove.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessageStashMove message.
+         * @function verify
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessageStashMove.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                if (!$util.isString(message.itemId))
+                    return "itemId: string expected";
+            if (message.toStash != null && message.hasOwnProperty("toStash"))
+                if (typeof message.toStash !== "boolean")
+                    return "toStash: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessageStashMove message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessageStashMove} MessageStashMove
+         */
+        MessageStashMove.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessageStashMove)
+                return object;
+            var message = new $root.types.MessageStashMove();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object.itemId != null)
+                message.itemId = String(object.itemId);
+            if (object.toStash != null)
+                message.toStash = Boolean(object.toStash);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessageStashMove message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {types.MessageStashMove} message MessageStashMove
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessageStashMove.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                object.itemId = "";
+                object.toStash = false;
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message.itemId != null && message.hasOwnProperty("itemId"))
+                object.itemId = message.itemId;
+            if (message.toStash != null && message.hasOwnProperty("toStash"))
+                object.toStash = message.toStash;
+            return object;
+        };
+
+        /**
+         * Converts this MessageStashMove to JSON.
+         * @function toJSON
+         * @memberof types.MessageStashMove
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessageStashMove.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessageStashMove
+         * @function getTypeUrl
+         * @memberof types.MessageStashMove
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessageStashMove.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessageStashMove";
+        };
+
+        return MessageStashMove;
+    })();
+
+    types.MessagePartySet = (function() {
+
+        /**
+         * Properties of a MessagePartySet.
+         * @memberof types
+         * @interface IMessagePartySet
+         * @property {Uint8Array|null} [address] MessagePartySet address
+         * @property {Uint8Array|null} [charId] MessagePartySet charId
+         * @property {Uint8Array|null} ["with"] MessagePartySet with
+         */
+
+        /**
+         * Constructs a new MessagePartySet.
+         * @memberof types
+         * @classdesc Represents a MessagePartySet.
+         * @implements IMessagePartySet
+         * @constructor
+         * @param {types.IMessagePartySet=} [properties] Properties to set
+         */
+        function MessagePartySet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MessagePartySet address.
+         * @member {Uint8Array} address
+         * @memberof types.MessagePartySet
+         * @instance
+         */
+        MessagePartySet.prototype.address = $util.newBuffer([]);
+
+        /**
+         * MessagePartySet charId.
+         * @member {Uint8Array} charId
+         * @memberof types.MessagePartySet
+         * @instance
+         */
+        MessagePartySet.prototype.charId = $util.newBuffer([]);
+
+        /**
+         * MessagePartySet with.
+         * @member {Uint8Array} with
+         * @memberof types.MessagePartySet
+         * @instance
+         */
+        MessagePartySet.prototype["with"] = $util.newBuffer([]);
+
+        /**
+         * Creates a new MessagePartySet instance using the specified properties.
+         * @function create
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {types.IMessagePartySet=} [properties] Properties to set
+         * @returns {types.MessagePartySet} MessagePartySet instance
+         */
+        MessagePartySet.create = function create(properties) {
+            return new MessagePartySet(properties);
+        };
+
+        /**
+         * Encodes the specified MessagePartySet message. Does not implicitly {@link types.MessagePartySet.verify|verify} messages.
+         * @function encode
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {types.IMessagePartySet} message MessagePartySet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessagePartySet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.address);
+            if (message.charId != null && Object.hasOwnProperty.call(message, "charId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.charId);
+            if (message["with"] != null && Object.hasOwnProperty.call(message, "with"))
+                writer.uint32(/* id 3, wireType 2 =*/26).bytes(message["with"]);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MessagePartySet message, length delimited. Does not implicitly {@link types.MessagePartySet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {types.IMessagePartySet} message MessagePartySet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MessagePartySet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MessagePartySet message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.MessagePartySet} MessagePartySet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessagePartySet.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.MessagePartySet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.address = reader.bytes();
+                        break;
+                    }
+                case 2: {
+                        message.charId = reader.bytes();
+                        break;
+                    }
+                case 3: {
+                        message["with"] = reader.bytes();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MessagePartySet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.MessagePartySet} MessagePartySet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MessagePartySet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MessagePartySet message.
+         * @function verify
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MessagePartySet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.address != null && message.hasOwnProperty("address"))
+                if (!(message.address && typeof message.address.length === "number" || $util.isString(message.address)))
+                    return "address: buffer expected";
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                if (!(message.charId && typeof message.charId.length === "number" || $util.isString(message.charId)))
+                    return "charId: buffer expected";
+            if (message["with"] != null && message.hasOwnProperty("with"))
+                if (!(message["with"] && typeof message["with"].length === "number" || $util.isString(message["with"])))
+                    return "with: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MessagePartySet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.MessagePartySet} MessagePartySet
+         */
+        MessagePartySet.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.MessagePartySet)
+                return object;
+            var message = new $root.types.MessagePartySet();
+            if (object.address != null)
+                if (typeof object.address === "string")
+                    $util.base64.decode(object.address, message.address = $util.newBuffer($util.base64.length(object.address)), 0);
+                else if (object.address.length >= 0)
+                    message.address = object.address;
+            if (object.charId != null)
+                if (typeof object.charId === "string")
+                    $util.base64.decode(object.charId, message.charId = $util.newBuffer($util.base64.length(object.charId)), 0);
+                else if (object.charId.length >= 0)
+                    message.charId = object.charId;
+            if (object["with"] != null)
+                if (typeof object["with"] === "string")
+                    $util.base64.decode(object["with"], message["with"] = $util.newBuffer($util.base64.length(object["with"])), 0);
+                else if (object["with"].length >= 0)
+                    message["with"] = object["with"];
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MessagePartySet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {types.MessagePartySet} message MessagePartySet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MessagePartySet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if (options.bytes === String)
+                    object.address = "";
+                else {
+                    object.address = [];
+                    if (options.bytes !== Array)
+                        object.address = $util.newBuffer(object.address);
+                }
+                if (options.bytes === String)
+                    object.charId = "";
+                else {
+                    object.charId = [];
+                    if (options.bytes !== Array)
+                        object.charId = $util.newBuffer(object.charId);
+                }
+                if (options.bytes === String)
+                    object["with"] = "";
+                else {
+                    object["with"] = [];
+                    if (options.bytes !== Array)
+                        object["with"] = $util.newBuffer(object["with"]);
+                }
+            }
+            if (message.address != null && message.hasOwnProperty("address"))
+                object.address = options.bytes === String ? $util.base64.encode(message.address, 0, message.address.length) : options.bytes === Array ? Array.prototype.slice.call(message.address) : message.address;
+            if (message.charId != null && message.hasOwnProperty("charId"))
+                object.charId = options.bytes === String ? $util.base64.encode(message.charId, 0, message.charId.length) : options.bytes === Array ? Array.prototype.slice.call(message.charId) : message.charId;
+            if (message["with"] != null && message.hasOwnProperty("with"))
+                object["with"] = options.bytes === String ? $util.base64.encode(message["with"], 0, message["with"].length) : options.bytes === Array ? Array.prototype.slice.call(message["with"]) : message["with"];
+            return object;
+        };
+
+        /**
+         * Converts this MessagePartySet to JSON.
+         * @function toJSON
+         * @memberof types.MessagePartySet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MessagePartySet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for MessagePartySet
+         * @function getTypeUrl
+         * @memberof types.MessagePartySet
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        MessagePartySet.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.MessagePartySet";
+        };
+
+        return MessagePartySet;
+    })();
+
+    types.AbbeyEvent = (function() {
+
+        /**
+         * Properties of an AbbeyEvent.
+         * @memberof types
+         * @interface IAbbeyEvent
+         * @property {string|null} [kind] AbbeyEvent kind
+         * @property {string|null} [data] AbbeyEvent data
+         */
+
+        /**
+         * Constructs a new AbbeyEvent.
+         * @memberof types
+         * @classdesc Represents an AbbeyEvent.
+         * @implements IAbbeyEvent
+         * @constructor
+         * @param {types.IAbbeyEvent=} [properties] Properties to set
+         */
+        function AbbeyEvent(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AbbeyEvent kind.
+         * @member {string} kind
+         * @memberof types.AbbeyEvent
+         * @instance
+         */
+        AbbeyEvent.prototype.kind = "";
+
+        /**
+         * AbbeyEvent data.
+         * @member {string} data
+         * @memberof types.AbbeyEvent
+         * @instance
+         */
+        AbbeyEvent.prototype.data = "";
+
+        /**
+         * Creates a new AbbeyEvent instance using the specified properties.
+         * @function create
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {types.IAbbeyEvent=} [properties] Properties to set
+         * @returns {types.AbbeyEvent} AbbeyEvent instance
+         */
+        AbbeyEvent.create = function create(properties) {
+            return new AbbeyEvent(properties);
+        };
+
+        /**
+         * Encodes the specified AbbeyEvent message. Does not implicitly {@link types.AbbeyEvent.verify|verify} messages.
+         * @function encode
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {types.IAbbeyEvent} message AbbeyEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AbbeyEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.kind != null && Object.hasOwnProperty.call(message, "kind"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.kind);
+            if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.data);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AbbeyEvent message, length delimited. Does not implicitly {@link types.AbbeyEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {types.IAbbeyEvent} message AbbeyEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AbbeyEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AbbeyEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {types.AbbeyEvent} AbbeyEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AbbeyEvent.decode = function decode(reader, length, error) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.types.AbbeyEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                if (tag === error)
+                    break;
+                switch (tag >>> 3) {
+                case 1: {
+                        message.kind = reader.string();
+                        break;
+                    }
+                case 2: {
+                        message.data = reader.string();
+                        break;
+                    }
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AbbeyEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {types.AbbeyEvent} AbbeyEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AbbeyEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AbbeyEvent message.
+         * @function verify
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AbbeyEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                if (!$util.isString(message.kind))
+                    return "kind: string expected";
+            if (message.data != null && message.hasOwnProperty("data"))
+                if (!$util.isString(message.data))
+                    return "data: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an AbbeyEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {types.AbbeyEvent} AbbeyEvent
+         */
+        AbbeyEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.types.AbbeyEvent)
+                return object;
+            var message = new $root.types.AbbeyEvent();
+            if (object.kind != null)
+                message.kind = String(object.kind);
+            if (object.data != null)
+                message.data = String(object.data);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AbbeyEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {types.AbbeyEvent} message AbbeyEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AbbeyEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.kind = "";
+                object.data = "";
+            }
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                object.kind = message.kind;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = message.data;
+            return object;
+        };
+
+        /**
+         * Converts this AbbeyEvent to JSON.
+         * @function toJSON
+         * @memberof types.AbbeyEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AbbeyEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        /**
+         * Gets the default type url for AbbeyEvent
+         * @function getTypeUrl
+         * @memberof types.AbbeyEvent
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        AbbeyEvent.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/types.AbbeyEvent";
+        };
+
+        return AbbeyEvent;
     })();
 
     return types;

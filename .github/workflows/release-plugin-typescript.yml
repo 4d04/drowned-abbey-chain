@@ -84,10 +84,14 @@ jobs:
           #
           # Note: pluginctl.sh is NOT included - it's copied separately by Dockerfile
           # and we don't want old releases to overwrite newer pluginctl.sh versions
+          #
+          # -h (dereference): the Drowned Abbey plugin depends on its rules engine as
+          # "file:./rules", which npm installs as a symlink in node_modules. Following it
+          # puts the built rules (dist/ and its production node_modules/) in the tarball.
           if [ -d proto ]; then
-            tar -czf release/typescript-plugin.tar.gz dist/ node_modules/ package.json proto/
+            tar -czhf release/typescript-plugin.tar.gz dist/ node_modules/ package.json proto/
           else
-            tar -czf release/typescript-plugin.tar.gz dist/ node_modules/ package.json
+            tar -czhf release/typescript-plugin.tar.gz dist/ node_modules/ package.json
           fi
 
       - name: Create GitHub release

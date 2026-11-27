@@ -912,9 +912,6 @@ export namespace types {
 
         /** PluginFSMConfig config */
         config?: (types.IPluginConfig|null);
-
-        /** PluginFSMConfig pluginConfig */
-        pluginConfig?: (Uint8Array|null);
     }
 
     /** Represents a PluginFSMConfig. */
@@ -928,9 +925,6 @@ export namespace types {
 
         /** PluginFSMConfig config. */
         public config?: (types.IPluginConfig|null);
-
-        /** PluginFSMConfig pluginConfig. */
-        public pluginConfig: Uint8Array;
 
         /**
          * Creates a new PluginFSMConfig instance using the specified properties.
@@ -2246,12 +2240,6 @@ export namespace types {
         /** PluginQueryResponse read */
         read?: (types.IPluginStateReadResponse|null);
 
-        /** PluginQueryResponse stateRoot */
-        stateRoot?: (Uint8Array|null);
-
-        /** PluginQueryResponse height */
-        height?: (number|Long|null);
-
         /** PluginQueryResponse error */
         error?: (types.IPluginError|null);
     }
@@ -2267,12 +2255,6 @@ export namespace types {
 
         /** PluginQueryResponse read. */
         public read?: (types.IPluginStateReadResponse|null);
-
-        /** PluginQueryResponse stateRoot. */
-        public stateRoot: Uint8Array;
-
-        /** PluginQueryResponse height. */
-        public height: (number|Long);
 
         /** PluginQueryResponse error. */
         public error?: (types.IPluginError|null);
@@ -2466,9 +2448,6 @@ export namespace types {
 
         /** PluginKeyRead key */
         key?: (Uint8Array|null);
-
-        /** PluginKeyRead prove */
-        prove?: (boolean|null);
     }
 
     /** Represents a PluginKeyRead. */
@@ -2485,9 +2464,6 @@ export namespace types {
 
         /** PluginKeyRead key. */
         public key: Uint8Array;
-
-        /** PluginKeyRead prove. */
-        public prove: boolean;
 
         /**
          * Creates a new PluginKeyRead instance using the specified properties.
@@ -2793,12 +2769,6 @@ export namespace types {
 
         /** PluginReadResult entries */
         entries?: (types.IPluginStateEntry[]|null);
-
-        /** PluginReadResult proof */
-        proof?: (types.IProofNode[]|null);
-
-        /** PluginReadResult exists */
-        exists?: (boolean|null);
     }
 
     /** Represents a PluginReadResult. */
@@ -2815,12 +2785,6 @@ export namespace types {
 
         /** PluginReadResult entries. */
         public entries: types.IPluginStateEntry[];
-
-        /** PluginReadResult proof. */
-        public proof: types.IProofNode[];
-
-        /** PluginReadResult exists. */
-        public exists: boolean;
 
         /**
          * Creates a new PluginReadResult instance using the specified properties.
@@ -2894,115 +2858,6 @@ export namespace types {
 
         /**
          * Gets the default type url for PluginReadResult
-         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
-         * @returns The default type url
-         */
-        public static getTypeUrl(typeUrlPrefix?: string): string;
-    }
-
-    /** Properties of a ProofNode. */
-    interface IProofNode {
-
-        /** ProofNode key */
-        key?: (Uint8Array|null);
-
-        /** ProofNode value */
-        value?: (Uint8Array|null);
-
-        /** ProofNode bitmask */
-        bitmask?: (number|null);
-    }
-
-    /** Represents a ProofNode. */
-    class ProofNode implements IProofNode {
-
-        /**
-         * Constructs a new ProofNode.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: types.IProofNode);
-
-        /** ProofNode key. */
-        public key: Uint8Array;
-
-        /** ProofNode value. */
-        public value: Uint8Array;
-
-        /** ProofNode bitmask. */
-        public bitmask: number;
-
-        /**
-         * Creates a new ProofNode instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns ProofNode instance
-         */
-        public static create(properties?: types.IProofNode): types.ProofNode;
-
-        /**
-         * Encodes the specified ProofNode message. Does not implicitly {@link types.ProofNode.verify|verify} messages.
-         * @param message ProofNode message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: types.IProofNode, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified ProofNode message, length delimited. Does not implicitly {@link types.ProofNode.verify|verify} messages.
-         * @param message ProofNode message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: types.IProofNode, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a ProofNode message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns ProofNode
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.ProofNode;
-
-        /**
-         * Decodes a ProofNode message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns ProofNode
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.ProofNode;
-
-        /**
-         * Verifies a ProofNode message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a ProofNode message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns ProofNode
-         */
-        public static fromObject(object: { [k: string]: any }): types.ProofNode;
-
-        /**
-         * Creates a plain object from a ProofNode message. Also converts values to other types if specified.
-         * @param message ProofNode
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: types.ProofNode, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this ProofNode to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-
-        /**
-         * Gets the default type url for ProofNode
          * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
          * @returns The default type url
          */
@@ -3966,6 +3821,1574 @@ export namespace types {
 
         /**
          * Gets the default type url for Signature
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageFaucetClaim. */
+    interface IMessageFaucetClaim {
+
+        /** MessageFaucetClaim address */
+        address?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageFaucetClaim. */
+    class MessageFaucetClaim implements IMessageFaucetClaim {
+
+        /**
+         * Constructs a new MessageFaucetClaim.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageFaucetClaim);
+
+        /** MessageFaucetClaim address. */
+        public address: Uint8Array;
+
+        /**
+         * Creates a new MessageFaucetClaim instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageFaucetClaim instance
+         */
+        public static create(properties?: types.IMessageFaucetClaim): types.MessageFaucetClaim;
+
+        /**
+         * Encodes the specified MessageFaucetClaim message. Does not implicitly {@link types.MessageFaucetClaim.verify|verify} messages.
+         * @param message MessageFaucetClaim message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageFaucetClaim, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageFaucetClaim message, length delimited. Does not implicitly {@link types.MessageFaucetClaim.verify|verify} messages.
+         * @param message MessageFaucetClaim message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageFaucetClaim, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageFaucetClaim message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageFaucetClaim
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageFaucetClaim;
+
+        /**
+         * Decodes a MessageFaucetClaim message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageFaucetClaim
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageFaucetClaim;
+
+        /**
+         * Verifies a MessageFaucetClaim message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageFaucetClaim message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageFaucetClaim
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageFaucetClaim;
+
+        /**
+         * Creates a plain object from a MessageFaucetClaim message. Also converts values to other types if specified.
+         * @param message MessageFaucetClaim
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageFaucetClaim, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageFaucetClaim to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageFaucetClaim
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageSetParams. */
+    interface IMessageSetParams {
+
+        /** MessageSetParams address */
+        address?: (Uint8Array|null);
+
+        /** MessageSetParams paramsJson */
+        paramsJson?: (string|null);
+    }
+
+    /** Represents a MessageSetParams. */
+    class MessageSetParams implements IMessageSetParams {
+
+        /**
+         * Constructs a new MessageSetParams.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageSetParams);
+
+        /** MessageSetParams address. */
+        public address: Uint8Array;
+
+        /** MessageSetParams paramsJson. */
+        public paramsJson: string;
+
+        /**
+         * Creates a new MessageSetParams instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageSetParams instance
+         */
+        public static create(properties?: types.IMessageSetParams): types.MessageSetParams;
+
+        /**
+         * Encodes the specified MessageSetParams message. Does not implicitly {@link types.MessageSetParams.verify|verify} messages.
+         * @param message MessageSetParams message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageSetParams, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageSetParams message, length delimited. Does not implicitly {@link types.MessageSetParams.verify|verify} messages.
+         * @param message MessageSetParams message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageSetParams, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageSetParams message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageSetParams
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageSetParams;
+
+        /**
+         * Decodes a MessageSetParams message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageSetParams
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageSetParams;
+
+        /**
+         * Verifies a MessageSetParams message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageSetParams message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageSetParams
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageSetParams;
+
+        /**
+         * Creates a plain object from a MessageSetParams message. Also converts values to other types if specified.
+         * @param message MessageSetParams
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageSetParams, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageSetParams to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageSetParams
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageCreateCharacter. */
+    interface IMessageCreateCharacter {
+
+        /** MessageCreateCharacter address */
+        address?: (Uint8Array|null);
+
+        /** MessageCreateCharacter name */
+        name?: (string|null);
+
+        /** MessageCreateCharacter classId */
+        classId?: (string|null);
+
+        /** MessageCreateCharacter commit */
+        commit?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageCreateCharacter. */
+    class MessageCreateCharacter implements IMessageCreateCharacter {
+
+        /**
+         * Constructs a new MessageCreateCharacter.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageCreateCharacter);
+
+        /** MessageCreateCharacter address. */
+        public address: Uint8Array;
+
+        /** MessageCreateCharacter name. */
+        public name: string;
+
+        /** MessageCreateCharacter classId. */
+        public classId: string;
+
+        /** MessageCreateCharacter commit. */
+        public commit: Uint8Array;
+
+        /**
+         * Creates a new MessageCreateCharacter instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageCreateCharacter instance
+         */
+        public static create(properties?: types.IMessageCreateCharacter): types.MessageCreateCharacter;
+
+        /**
+         * Encodes the specified MessageCreateCharacter message. Does not implicitly {@link types.MessageCreateCharacter.verify|verify} messages.
+         * @param message MessageCreateCharacter message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageCreateCharacter, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageCreateCharacter message, length delimited. Does not implicitly {@link types.MessageCreateCharacter.verify|verify} messages.
+         * @param message MessageCreateCharacter message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageCreateCharacter, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageCreateCharacter message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageCreateCharacter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageCreateCharacter;
+
+        /**
+         * Decodes a MessageCreateCharacter message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageCreateCharacter
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageCreateCharacter;
+
+        /**
+         * Verifies a MessageCreateCharacter message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageCreateCharacter message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageCreateCharacter
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageCreateCharacter;
+
+        /**
+         * Creates a plain object from a MessageCreateCharacter message. Also converts values to other types if specified.
+         * @param message MessageCreateCharacter
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageCreateCharacter, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageCreateCharacter to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageCreateCharacter
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageAssignStats. */
+    interface IMessageAssignStats {
+
+        /** MessageAssignStats address */
+        address?: (Uint8Array|null);
+
+        /** MessageAssignStats charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageAssignStats permutation */
+        permutation?: (number[]|null);
+    }
+
+    /** Represents a MessageAssignStats. */
+    class MessageAssignStats implements IMessageAssignStats {
+
+        /**
+         * Constructs a new MessageAssignStats.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageAssignStats);
+
+        /** MessageAssignStats address. */
+        public address: Uint8Array;
+
+        /** MessageAssignStats charId. */
+        public charId: Uint8Array;
+
+        /** MessageAssignStats permutation. */
+        public permutation: number[];
+
+        /**
+         * Creates a new MessageAssignStats instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageAssignStats instance
+         */
+        public static create(properties?: types.IMessageAssignStats): types.MessageAssignStats;
+
+        /**
+         * Encodes the specified MessageAssignStats message. Does not implicitly {@link types.MessageAssignStats.verify|verify} messages.
+         * @param message MessageAssignStats message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageAssignStats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageAssignStats message, length delimited. Does not implicitly {@link types.MessageAssignStats.verify|verify} messages.
+         * @param message MessageAssignStats message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageAssignStats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageAssignStats message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageAssignStats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageAssignStats;
+
+        /**
+         * Decodes a MessageAssignStats message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageAssignStats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageAssignStats;
+
+        /**
+         * Verifies a MessageAssignStats message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageAssignStats message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageAssignStats
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageAssignStats;
+
+        /**
+         * Creates a plain object from a MessageAssignStats message. Also converts values to other types if specified.
+         * @param message MessageAssignStats
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageAssignStats, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageAssignStats to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageAssignStats
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageEnterDungeon. */
+    interface IMessageEnterDungeon {
+
+        /** MessageEnterDungeon address */
+        address?: (Uint8Array|null);
+
+        /** MessageEnterDungeon charId */
+        charId?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageEnterDungeon. */
+    class MessageEnterDungeon implements IMessageEnterDungeon {
+
+        /**
+         * Constructs a new MessageEnterDungeon.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageEnterDungeon);
+
+        /** MessageEnterDungeon address. */
+        public address: Uint8Array;
+
+        /** MessageEnterDungeon charId. */
+        public charId: Uint8Array;
+
+        /**
+         * Creates a new MessageEnterDungeon instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageEnterDungeon instance
+         */
+        public static create(properties?: types.IMessageEnterDungeon): types.MessageEnterDungeon;
+
+        /**
+         * Encodes the specified MessageEnterDungeon message. Does not implicitly {@link types.MessageEnterDungeon.verify|verify} messages.
+         * @param message MessageEnterDungeon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageEnterDungeon, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageEnterDungeon message, length delimited. Does not implicitly {@link types.MessageEnterDungeon.verify|verify} messages.
+         * @param message MessageEnterDungeon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageEnterDungeon, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageEnterDungeon message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageEnterDungeon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageEnterDungeon;
+
+        /**
+         * Decodes a MessageEnterDungeon message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageEnterDungeon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageEnterDungeon;
+
+        /**
+         * Verifies a MessageEnterDungeon message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageEnterDungeon message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageEnterDungeon
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageEnterDungeon;
+
+        /**
+         * Creates a plain object from a MessageEnterDungeon message. Also converts values to other types if specified.
+         * @param message MessageEnterDungeon
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageEnterDungeon, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageEnterDungeon to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageEnterDungeon
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageAct. */
+    interface IMessageAct {
+
+        /** MessageAct address */
+        address?: (Uint8Array|null);
+
+        /** MessageAct charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageAct kind */
+        kind?: (string|null);
+
+        /** MessageAct actionId */
+        actionId?: (string|null);
+
+        /** MessageAct target */
+        target?: (string|null);
+
+        /** MessageAct itemId */
+        itemId?: (string|null);
+
+        /** MessageAct ability */
+        ability?: (string|null);
+
+        /** MessageAct toLevel */
+        toLevel?: (number|null);
+
+        /** MessageAct toRoom */
+        toRoom?: (number|null);
+
+        /** MessageAct lootRef */
+        lootRef?: (string|null);
+
+        /** MessageAct commit */
+        commit?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageAct. */
+    class MessageAct implements IMessageAct {
+
+        /**
+         * Constructs a new MessageAct.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageAct);
+
+        /** MessageAct address. */
+        public address: Uint8Array;
+
+        /** MessageAct charId. */
+        public charId: Uint8Array;
+
+        /** MessageAct kind. */
+        public kind: string;
+
+        /** MessageAct actionId. */
+        public actionId: string;
+
+        /** MessageAct target. */
+        public target: string;
+
+        /** MessageAct itemId. */
+        public itemId: string;
+
+        /** MessageAct ability. */
+        public ability: string;
+
+        /** MessageAct toLevel. */
+        public toLevel: number;
+
+        /** MessageAct toRoom. */
+        public toRoom: number;
+
+        /** MessageAct lootRef. */
+        public lootRef: string;
+
+        /** MessageAct commit. */
+        public commit: Uint8Array;
+
+        /**
+         * Creates a new MessageAct instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageAct instance
+         */
+        public static create(properties?: types.IMessageAct): types.MessageAct;
+
+        /**
+         * Encodes the specified MessageAct message. Does not implicitly {@link types.MessageAct.verify|verify} messages.
+         * @param message MessageAct message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageAct, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageAct message, length delimited. Does not implicitly {@link types.MessageAct.verify|verify} messages.
+         * @param message MessageAct message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageAct, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageAct message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageAct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageAct;
+
+        /**
+         * Decodes a MessageAct message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageAct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageAct;
+
+        /**
+         * Verifies a MessageAct message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageAct message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageAct
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageAct;
+
+        /**
+         * Creates a plain object from a MessageAct message. Also converts values to other types if specified.
+         * @param message MessageAct
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageAct, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageAct to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageAct
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageReveal. */
+    interface IMessageReveal {
+
+        /** MessageReveal address */
+        address?: (Uint8Array|null);
+
+        /** MessageReveal rollId */
+        rollId?: (Uint8Array|null);
+
+        /** MessageReveal secret */
+        secret?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageReveal. */
+    class MessageReveal implements IMessageReveal {
+
+        /**
+         * Constructs a new MessageReveal.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageReveal);
+
+        /** MessageReveal address. */
+        public address: Uint8Array;
+
+        /** MessageReveal rollId. */
+        public rollId: Uint8Array;
+
+        /** MessageReveal secret. */
+        public secret: Uint8Array;
+
+        /**
+         * Creates a new MessageReveal instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageReveal instance
+         */
+        public static create(properties?: types.IMessageReveal): types.MessageReveal;
+
+        /**
+         * Encodes the specified MessageReveal message. Does not implicitly {@link types.MessageReveal.verify|verify} messages.
+         * @param message MessageReveal message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageReveal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageReveal message, length delimited. Does not implicitly {@link types.MessageReveal.verify|verify} messages.
+         * @param message MessageReveal message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageReveal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageReveal message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageReveal
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageReveal;
+
+        /**
+         * Decodes a MessageReveal message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageReveal
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageReveal;
+
+        /**
+         * Verifies a MessageReveal message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageReveal message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageReveal
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageReveal;
+
+        /**
+         * Creates a plain object from a MessageReveal message. Also converts values to other types if specified.
+         * @param message MessageReveal
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageReveal, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageReveal to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageReveal
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageGive. */
+    interface IMessageGive {
+
+        /** MessageGive address */
+        address?: (Uint8Array|null);
+
+        /** MessageGive charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageGive toCharId */
+        toCharId?: (Uint8Array|null);
+
+        /** MessageGive itemId */
+        itemId?: (string|null);
+
+        /** MessageGive gold */
+        gold?: (number|Long|null);
+    }
+
+    /** Represents a MessageGive. */
+    class MessageGive implements IMessageGive {
+
+        /**
+         * Constructs a new MessageGive.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageGive);
+
+        /** MessageGive address. */
+        public address: Uint8Array;
+
+        /** MessageGive charId. */
+        public charId: Uint8Array;
+
+        /** MessageGive toCharId. */
+        public toCharId: Uint8Array;
+
+        /** MessageGive itemId. */
+        public itemId: string;
+
+        /** MessageGive gold. */
+        public gold: (number|Long);
+
+        /**
+         * Creates a new MessageGive instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageGive instance
+         */
+        public static create(properties?: types.IMessageGive): types.MessageGive;
+
+        /**
+         * Encodes the specified MessageGive message. Does not implicitly {@link types.MessageGive.verify|verify} messages.
+         * @param message MessageGive message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageGive, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageGive message, length delimited. Does not implicitly {@link types.MessageGive.verify|verify} messages.
+         * @param message MessageGive message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageGive, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageGive message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageGive
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageGive;
+
+        /**
+         * Decodes a MessageGive message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageGive
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageGive;
+
+        /**
+         * Verifies a MessageGive message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageGive message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageGive
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageGive;
+
+        /**
+         * Creates a plain object from a MessageGive message. Also converts values to other types if specified.
+         * @param message MessageGive
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageGive, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageGive to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageGive
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageExtract. */
+    interface IMessageExtract {
+
+        /** MessageExtract address */
+        address?: (Uint8Array|null);
+
+        /** MessageExtract charId */
+        charId?: (Uint8Array|null);
+    }
+
+    /** Represents a MessageExtract. */
+    class MessageExtract implements IMessageExtract {
+
+        /**
+         * Constructs a new MessageExtract.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageExtract);
+
+        /** MessageExtract address. */
+        public address: Uint8Array;
+
+        /** MessageExtract charId. */
+        public charId: Uint8Array;
+
+        /**
+         * Creates a new MessageExtract instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageExtract instance
+         */
+        public static create(properties?: types.IMessageExtract): types.MessageExtract;
+
+        /**
+         * Encodes the specified MessageExtract message. Does not implicitly {@link types.MessageExtract.verify|verify} messages.
+         * @param message MessageExtract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageExtract, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageExtract message, length delimited. Does not implicitly {@link types.MessageExtract.verify|verify} messages.
+         * @param message MessageExtract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageExtract, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageExtract message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageExtract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageExtract;
+
+        /**
+         * Decodes a MessageExtract message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageExtract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageExtract;
+
+        /**
+         * Verifies a MessageExtract message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageExtract message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageExtract
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageExtract;
+
+        /**
+         * Creates a plain object from a MessageExtract message. Also converts values to other types if specified.
+         * @param message MessageExtract
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageExtract, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageExtract to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageExtract
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageShopBuy. */
+    interface IMessageShopBuy {
+
+        /** MessageShopBuy address */
+        address?: (Uint8Array|null);
+
+        /** MessageShopBuy charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageShopBuy template */
+        template?: (string|null);
+
+        /** MessageShopBuy qty */
+        qty?: (number|null);
+    }
+
+    /** Represents a MessageShopBuy. */
+    class MessageShopBuy implements IMessageShopBuy {
+
+        /**
+         * Constructs a new MessageShopBuy.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageShopBuy);
+
+        /** MessageShopBuy address. */
+        public address: Uint8Array;
+
+        /** MessageShopBuy charId. */
+        public charId: Uint8Array;
+
+        /** MessageShopBuy template. */
+        public template: string;
+
+        /** MessageShopBuy qty. */
+        public qty: number;
+
+        /**
+         * Creates a new MessageShopBuy instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageShopBuy instance
+         */
+        public static create(properties?: types.IMessageShopBuy): types.MessageShopBuy;
+
+        /**
+         * Encodes the specified MessageShopBuy message. Does not implicitly {@link types.MessageShopBuy.verify|verify} messages.
+         * @param message MessageShopBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageShopBuy, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageShopBuy message, length delimited. Does not implicitly {@link types.MessageShopBuy.verify|verify} messages.
+         * @param message MessageShopBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageShopBuy, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageShopBuy message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageShopBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageShopBuy;
+
+        /**
+         * Decodes a MessageShopBuy message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageShopBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageShopBuy;
+
+        /**
+         * Verifies a MessageShopBuy message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageShopBuy message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageShopBuy
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageShopBuy;
+
+        /**
+         * Creates a plain object from a MessageShopBuy message. Also converts values to other types if specified.
+         * @param message MessageShopBuy
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageShopBuy, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageShopBuy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageShopBuy
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageShopSell. */
+    interface IMessageShopSell {
+
+        /** MessageShopSell address */
+        address?: (Uint8Array|null);
+
+        /** MessageShopSell charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageShopSell itemId */
+        itemId?: (string|null);
+    }
+
+    /** Represents a MessageShopSell. */
+    class MessageShopSell implements IMessageShopSell {
+
+        /**
+         * Constructs a new MessageShopSell.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageShopSell);
+
+        /** MessageShopSell address. */
+        public address: Uint8Array;
+
+        /** MessageShopSell charId. */
+        public charId: Uint8Array;
+
+        /** MessageShopSell itemId. */
+        public itemId: string;
+
+        /**
+         * Creates a new MessageShopSell instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageShopSell instance
+         */
+        public static create(properties?: types.IMessageShopSell): types.MessageShopSell;
+
+        /**
+         * Encodes the specified MessageShopSell message. Does not implicitly {@link types.MessageShopSell.verify|verify} messages.
+         * @param message MessageShopSell message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageShopSell, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageShopSell message, length delimited. Does not implicitly {@link types.MessageShopSell.verify|verify} messages.
+         * @param message MessageShopSell message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageShopSell, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageShopSell message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageShopSell
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageShopSell;
+
+        /**
+         * Decodes a MessageShopSell message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageShopSell
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageShopSell;
+
+        /**
+         * Verifies a MessageShopSell message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageShopSell message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageShopSell
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageShopSell;
+
+        /**
+         * Creates a plain object from a MessageShopSell message. Also converts values to other types if specified.
+         * @param message MessageShopSell
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageShopSell, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageShopSell to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageShopSell
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessageStashMove. */
+    interface IMessageStashMove {
+
+        /** MessageStashMove address */
+        address?: (Uint8Array|null);
+
+        /** MessageStashMove charId */
+        charId?: (Uint8Array|null);
+
+        /** MessageStashMove itemId */
+        itemId?: (string|null);
+
+        /** MessageStashMove toStash */
+        toStash?: (boolean|null);
+    }
+
+    /** Represents a MessageStashMove. */
+    class MessageStashMove implements IMessageStashMove {
+
+        /**
+         * Constructs a new MessageStashMove.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessageStashMove);
+
+        /** MessageStashMove address. */
+        public address: Uint8Array;
+
+        /** MessageStashMove charId. */
+        public charId: Uint8Array;
+
+        /** MessageStashMove itemId. */
+        public itemId: string;
+
+        /** MessageStashMove toStash. */
+        public toStash: boolean;
+
+        /**
+         * Creates a new MessageStashMove instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessageStashMove instance
+         */
+        public static create(properties?: types.IMessageStashMove): types.MessageStashMove;
+
+        /**
+         * Encodes the specified MessageStashMove message. Does not implicitly {@link types.MessageStashMove.verify|verify} messages.
+         * @param message MessageStashMove message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessageStashMove, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessageStashMove message, length delimited. Does not implicitly {@link types.MessageStashMove.verify|verify} messages.
+         * @param message MessageStashMove message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessageStashMove, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessageStashMove message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessageStashMove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessageStashMove;
+
+        /**
+         * Decodes a MessageStashMove message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessageStashMove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessageStashMove;
+
+        /**
+         * Verifies a MessageStashMove message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessageStashMove message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessageStashMove
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessageStashMove;
+
+        /**
+         * Creates a plain object from a MessageStashMove message. Also converts values to other types if specified.
+         * @param message MessageStashMove
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessageStashMove, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessageStashMove to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessageStashMove
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a MessagePartySet. */
+    interface IMessagePartySet {
+
+        /** MessagePartySet address */
+        address?: (Uint8Array|null);
+
+        /** MessagePartySet charId */
+        charId?: (Uint8Array|null);
+
+        /** MessagePartySet with */
+        "with"?: (Uint8Array|null);
+    }
+
+    /** Represents a MessagePartySet. */
+    class MessagePartySet implements IMessagePartySet {
+
+        /**
+         * Constructs a new MessagePartySet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IMessagePartySet);
+
+        /** MessagePartySet address. */
+        public address: Uint8Array;
+
+        /** MessagePartySet charId. */
+        public charId: Uint8Array;
+
+        /** MessagePartySet with. */
+        public with: Uint8Array;
+
+        /**
+         * Creates a new MessagePartySet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MessagePartySet instance
+         */
+        public static create(properties?: types.IMessagePartySet): types.MessagePartySet;
+
+        /**
+         * Encodes the specified MessagePartySet message. Does not implicitly {@link types.MessagePartySet.verify|verify} messages.
+         * @param message MessagePartySet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IMessagePartySet, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MessagePartySet message, length delimited. Does not implicitly {@link types.MessagePartySet.verify|verify} messages.
+         * @param message MessagePartySet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IMessagePartySet, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MessagePartySet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MessagePartySet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.MessagePartySet;
+
+        /**
+         * Decodes a MessagePartySet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MessagePartySet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.MessagePartySet;
+
+        /**
+         * Verifies a MessagePartySet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MessagePartySet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MessagePartySet
+         */
+        public static fromObject(object: { [k: string]: any }): types.MessagePartySet;
+
+        /**
+         * Creates a plain object from a MessagePartySet message. Also converts values to other types if specified.
+         * @param message MessagePartySet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.MessagePartySet, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MessagePartySet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MessagePartySet
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of an AbbeyEvent. */
+    interface IAbbeyEvent {
+
+        /** AbbeyEvent kind */
+        kind?: (string|null);
+
+        /** AbbeyEvent data */
+        data?: (string|null);
+    }
+
+    /** Represents an AbbeyEvent. */
+    class AbbeyEvent implements IAbbeyEvent {
+
+        /**
+         * Constructs a new AbbeyEvent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: types.IAbbeyEvent);
+
+        /** AbbeyEvent kind. */
+        public kind: string;
+
+        /** AbbeyEvent data. */
+        public data: string;
+
+        /**
+         * Creates a new AbbeyEvent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AbbeyEvent instance
+         */
+        public static create(properties?: types.IAbbeyEvent): types.AbbeyEvent;
+
+        /**
+         * Encodes the specified AbbeyEvent message. Does not implicitly {@link types.AbbeyEvent.verify|verify} messages.
+         * @param message AbbeyEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: types.IAbbeyEvent, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AbbeyEvent message, length delimited. Does not implicitly {@link types.AbbeyEvent.verify|verify} messages.
+         * @param message AbbeyEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: types.IAbbeyEvent, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AbbeyEvent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AbbeyEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): types.AbbeyEvent;
+
+        /**
+         * Decodes an AbbeyEvent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AbbeyEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): types.AbbeyEvent;
+
+        /**
+         * Verifies an AbbeyEvent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AbbeyEvent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AbbeyEvent
+         */
+        public static fromObject(object: { [k: string]: any }): types.AbbeyEvent;
+
+        /**
+         * Creates a plain object from an AbbeyEvent message. Also converts values to other types if specified.
+         * @param message AbbeyEvent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: types.AbbeyEvent, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AbbeyEvent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for AbbeyEvent
          * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
          * @returns The default type url
          */
